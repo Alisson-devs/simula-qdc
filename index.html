@@ -49,6 +49,7 @@
 
     <div class="header-actions">
       <input type="file" id="file-project-input" accept=".qdc,.json" style="display: none;">
+      <button id="btn-theme-toggle" class="btn-icon" title="Alternar entre Modo Claro e Escuro">☀️ Claro</button>
       <button id="btn-manage-projects" class="btn-icon success" title="Salvar e gerenciar projetos no navegador ou celular">📁 Meus Projetos</button>
       <button id="btn-save-project" class="btn-icon" title="Baixar arquivo de backup (.qdc)">💾 Arquivo</button>
       <button id="btn-open-project" class="btn-icon" title="Abrir arquivo do computador">📂 Abrir</button>
@@ -119,7 +120,7 @@
           <button id="example-mono-lamp" class="btn-icon" style="width: 100%; margin-bottom: 6px;">💡 Iluminação Monofásica</button>
           <button id="example-double-switch" class="btn-icon" style="width: 100%; margin-bottom: 6px;">💡💡 Interruptor Duplo (2 Lâmpadas)</button>
           <button id="example-parallel" class="btn-icon" style="width: 100%; margin-bottom: 6px;">🔀 Three-Way Paralelo</button>
-          <button id="example-qdc-complete" class="btn-icon" style="width: 100%;">🛡️ QDC Completo (DR + Chuveiro)</button>
+          <button id="example-qdc-complete" class="btn-icon" style="width: 100%;">🛡️ QDC Montado no Quadro (Padrão da Foto)</button>
         </div>
       </div>
     </aside>
@@ -144,6 +145,7 @@
         </div>
 
         <div class="tool-group">
+          <button id="btn-toggle-enclosure" class="btn-icon active" title="Exibir ou Ocultar Quadro Metálico QDC com Trilhos DIN">🖼️ Quadro QDC</button>
           <button id="btn-multimeter" class="btn-icon" title="Exibir Multímetro Digital True RMS">📟 Multímetro</button>
 
           <label class="switch-label">

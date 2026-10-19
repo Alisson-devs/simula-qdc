@@ -338,7 +338,23 @@
         { id: 'in',  label: 'Entrada Fase/N', type: 'f1', x: 35, y: 0 },
         { id: 'pe',  label: 'Aterramento PE', type: 'pe', x: 35, y: 100 }
       ],
-      defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true }
+      defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true, poles: 1 }
+    },
+    spd3: {
+      name: 'DPS Trifásico Classe II (3 Pólos Vermelhos)',
+      shortName: 'DPS 3P (45kA)',
+      category: 'qdc',
+      categoryLabel: 'Proteção QDC',
+      w: 125, h: 100,
+      terms: [
+        { id: 'in1', label: 'Entrada L1', type: 'f1', x: 21, y: 0 },
+        { id: 'in2', label: 'Entrada L2', type: 'f2', x: 62, y: 0 },
+        { id: 'in3', label: 'Entrada L3', type: 'f3', x: 104, y: 0 },
+        { id: 'pe1', label: 'Terra PE1',  type: 'pe', x: 21, y: 100 },
+        { id: 'pe2', label: 'Terra PE2',  type: 'pe', x: 62, y: 100 },
+        { id: 'pe3', label: 'Terra PE3',  type: 'pe', x: 104, y: 100 }
+      ],
+      defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true, poles: 3 }
     },
     neutral_bus: {
       name: 'Barramento de Neutro Isolado',
@@ -371,6 +387,69 @@
         { id: 'pe5', label: 'PE5', type: 'pe', x: 160, y: 23 }
       ],
       defaultProps: {}
+    },
+    comb_1p: {
+      name: 'Barramento Tipo Pente Monofásico 1P',
+      shortName: 'PENTE 1P (63A)',
+      category: 'bus',
+      categoryLabel: 'Barramentos Pente',
+      w: 240, h: 42,
+      terms: [
+        { id: 'p0', label: 'Pino 1 (Fase)', type: 'f1', x: 20,  y: 42 },
+        { id: 'p1', label: 'Pino 2 (Fase)', type: 'f1', x: 60,  y: 42 },
+        { id: 'p2', label: 'Pino 3 (Fase)', type: 'f1', x: 100, y: 42 },
+        { id: 'p3', label: 'Pino 4 (Fase)', type: 'f1', x: 140, y: 42 },
+        { id: 'p4', label: 'Pino 5 (Fase)', type: 'f1', x: 180, y: 42 },
+        { id: 'p5', label: 'Pino 6 (Fase)', type: 'f1', x: 220, y: 42 }
+      ],
+      defaultProps: { rating: 63 }
+    },
+    comb_2p: {
+      name: 'Barramento Tipo Pente Bifásico 2P',
+      shortName: 'PENTE 2P (63A)',
+      category: 'bus',
+      categoryLabel: 'Barramentos Pente',
+      w: 240, h: 42,
+      terms: [
+        { id: 'p0', label: 'Pino 1 (L1)', type: 'f1', x: 20,  y: 42 },
+        { id: 'p1', label: 'Pino 2 (L2)', type: 'f2', x: 60,  y: 42 },
+        { id: 'p2', label: 'Pino 3 (L1)', type: 'f1', x: 100, y: 42 },
+        { id: 'p3', label: 'Pino 4 (L2)', type: 'f2', x: 140, y: 42 },
+        { id: 'p4', label: 'Pino 5 (L1)', type: 'f1', x: 180, y: 42 },
+        { id: 'p5', label: 'Pino 6 (L2)', type: 'f2', x: 220, y: 42 }
+      ],
+      defaultProps: { rating: 63 }
+    },
+    comb_3p: {
+      name: 'Barramento Tipo Pente Trifásico 3P',
+      shortName: 'PENTE 3P (63A)',
+      category: 'bus',
+      categoryLabel: 'Barramentos Pente',
+      w: 240, h: 42,
+      terms: [
+        { id: 'p0', label: 'Pino 1 (L1)', type: 'f1', x: 20,  y: 42 },
+        { id: 'p1', label: 'Pino 2 (L2)', type: 'f2', x: 60,  y: 42 },
+        { id: 'p2', label: 'Pino 3 (L3)', type: 'f3', x: 100, y: 42 },
+        { id: 'p3', label: 'Pino 4 (L1)', type: 'f1', x: 140, y: 42 },
+        { id: 'p4', label: 'Pino 5 (L2)', type: 'f2', x: 180, y: 42 },
+        { id: 'p5', label: 'Pino 6 (L3)', type: 'f3', x: 220, y: 42 }
+      ],
+      defaultProps: { rating: 63 }
+    },
+    wire_junction: {
+      name: 'Conector de Emenda / Derivação (WAGO)',
+      shortName: 'EMENDA / NÓ',
+      category: 'bus',
+      categoryLabel: 'Emendas & Derivações',
+      w: 32, h: 32,
+      terms: [
+        { id: 't0', label: 'Borne Norte', type: 'ret', x: 16, y: 0 },
+        { id: 't1', label: 'Borne Sul',   type: 'ret', x: 16, y: 32 },
+        { id: 't2', label: 'Borne Oeste', type: 'ret', x: 0,  y: 16 },
+        { id: 't3', label: 'Borne Leste', type: 'ret', x: 32, y: 16 },
+        { id: 't4', label: 'Borne Centro',type: 'ret', x: 16, y: 16 }
+      ],
+      defaultProps: { color: 'f1' }
     },
     switch_simple: {
       name: 'Interruptor Simples (1 Tecla)',
@@ -706,9 +785,22 @@
           break;
         case 'neutral_bus':
         case 'earth_bus':
+        case 'comb_1p':
+        case 'wire_junction':
           if (p.terms && p.terms.length > 1) {
             for (let i = 0; i < p.terms.length - 1; i++) pairs.push([i, i + 1]);
           }
+          break;
+        case 'comb_2p':
+          // Pinos 0, 2, 4 conduzem entre si (L1); Pinos 1, 3, 5 conduzem entre si (L2)
+          pairs.push([0, 2]); pairs.push([2, 4]);
+          pairs.push([1, 3]); pairs.push([3, 5]);
+          break;
+        case 'comb_3p':
+          // Pinos 0, 3 conduzem entre si (L1); Pinos 1, 4 (L2); Pinos 2, 5 (L3)
+          pairs.push([0, 3]);
+          pairs.push([1, 4]);
+          pairs.push([2, 5]);
           break;
         case 'switch_simple':
           if (props.isOn) pairs.push([0, 1]);
@@ -922,6 +1014,7 @@
       this.probeRed = null;
       this.draggingProbe = null;
       this.lastSimulationReport = null;
+      this.showEnclosure = true;
 
       this.onSelectionChange = options.onSelectionChange || (() => {});
       this.onTopologyChange = options.onTopologyChange || (() => {});
@@ -957,7 +1050,15 @@
             <stop offset="100%" stop-color="#e2e8f0"/>
           </linearGradient>
 
-          <!-- Trilho DIN de Aço Zincado -->
+          <!-- Trilho DIN de Aço Zincado com Perfurações -->
+          <linearGradient id="din-rail-steel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#94a3b8"/>
+            <stop offset="12%" stop-color="#f8fafc"/>
+            <stop offset="50%" stop-color="#cbd5e1"/>
+            <stop offset="85%" stop-color="#94a3b8"/>
+            <stop offset="100%" stop-color="#475569"/>
+          </linearGradient>
+
           <linearGradient id="din-rail-metal" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#94a3b8"/>
             <stop offset="25%" stop-color="#e2e8f0"/>
@@ -971,6 +1072,30 @@
             <stop offset="0%" stop-color="#475569"/>
             <stop offset="35%" stop-color="#1e293b"/>
             <stop offset="100%" stop-color="#090d14"/>
+          </linearGradient>
+
+          <!-- Manopla e Botão Vermelho Vivo do DR (Padrão Foto) -->
+          <linearGradient id="lever-red" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f87171"/>
+            <stop offset="35%" stop-color="#ef4444"/>
+            <stop offset="75%" stop-color="#dc2626"/>
+            <stop offset="100%" stop-color="#991b1b"/>
+          </linearGradient>
+
+          <!-- Corpo Vermelho do DPS (Padrão Clamper / Steck) -->
+          <linearGradient id="dps-red-casing" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#ef4444"/>
+            <stop offset="25%" stop-color="#dc2626"/>
+            <stop offset="75%" stop-color="#b91c1c"/>
+            <stop offset="100%" stop-color="#991b1b"/>
+          </linearGradient>
+
+          <!-- Cartucho Vermelho Frontal do DPS -->
+          <linearGradient id="dps-red-cartridge" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f87171"/>
+            <stop offset="20%" stop-color="#ef4444"/>
+            <stop offset="65%" stop-color="#dc2626"/>
+            <stop offset="100%" stop-color="#b91c1c"/>
           </linearGradient>
 
           <!-- Parafuso Metálico em Aço e Latão -->
@@ -1053,6 +1178,7 @@
         <rect id="cad-bg" width="100%" height="100%" fill="#0b1017"/>
         <rect id="cad-grid-bg" width="100%" height="100%" fill="url(#cad-grid-large)"/>
         <g id="viewport-group">
+          <g id="enclosure-layer"></g>
           <g id="wires-layer"></g>
           <path id="cad-temp-wire" d="" fill="none" stroke="#facc15" stroke-width="5" stroke-dasharray="6 6" stroke-linecap="round" style="display: none; pointer-events: none; filter: drop-shadow(0 0 6px #eab308);"/>
           <g id="parts-layer"></g>
@@ -1061,6 +1187,7 @@
         </g>
       `;
 
+      this.enclosureLayer = this.svg.querySelector('#enclosure-layer');
       this.wiresLayer = this.svg.querySelector('#wires-layer');
       this.partsLayer = this.svg.querySelector('#parts-layer');
       this.overlayLayer = this.svg.querySelector('#overlay-layer');
@@ -1267,6 +1394,61 @@
       return d;
     }
 
+    spliceWireAt(targetWire, pt) {
+      this.saveHistory();
+
+      // 1. Cria o nó de emenda/derivação na coordenada clicada
+      const junction = {
+        id: this.nextPartId++,
+        kind: 'wire_junction',
+        name: 'Conector de Emenda / Derivação',
+        shortName: 'EMENDA',
+        x: pt.x - 16,
+        y: pt.y - 16,
+        orientation: 'vertical',
+        props: { color: targetWire.color || (this.drawingWire ? this.drawingWire.color : 'f1') },
+        terms: []
+      };
+      this.updatePartGeometry(junction);
+      this.parts.push(junction);
+
+      // 2. O fio original continua de targetWire.a até o nó de emenda (borne 4 - centro)
+      const origB = { ...targetWire.b };
+      targetWire.b = { pid: junction.id, idx: 4 };
+
+      // 3. Cria a continuação do fio original: da emenda até o destino original B
+      const continuationWire = {
+        id: this.nextWireId++,
+        a: { pid: junction.id, idx: 4 },
+        b: origB,
+        points: [],
+        color: targetWire.color,
+        gauge: targetWire.gauge
+      };
+      this.wires.push(continuationWire);
+
+      // 4. Se havia um fio sendo puxado, conecta ele ao nó de emenda
+      if (this.drawingWire) {
+        const newBranchWire = {
+          id: this.nextWireId++,
+          a: { ...this.drawingWire.from },
+          b: { pid: junction.id, idx: 4 },
+          points: [...this.drawingWire.points],
+          color: this.drawingWire.color || targetWire.color,
+          gauge: this.drawingWire.gauge || targetWire.gauge
+        };
+        this.wires.push(newBranchWire);
+        this.drawingWire = null;
+        this.updateTempWirePreview();
+      }
+
+      this.selected = { type: 'part', id: junction.id };
+      sound.playClick();
+      this.render();
+      this.onTopologyChange();
+      this.onSelectionChange(junction);
+    }
+
     updateTempWirePreview() {
       const tempWire = this.svg?.querySelector('#cad-temp-wire');
       if (!tempWire) return;
@@ -1302,11 +1484,150 @@
       tempWire.style.display = 'block';
     }
 
+    renderEnclosure() {
+      if (!this.enclosureLayer) return;
+      const g = this.el('g', { id: 'cad-qdc-enclosure', class: 'enclosure-group' });
+
+      // 1. Chapa Traseira do Quadro Metálico QDC (Cinza Industrial Acetinado com cantos arredondados)
+      const qx = 60, qy = 40, qw = 860, qh = 820, rx = 36;
+
+      // Sombra e Rebaixo Exterior
+      g.appendChild(this.el('rect', {
+        x: qx - 8, y: qy - 8, width: qw + 16, height: qh + 16, rx: rx + 4,
+        fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 2, opacity: '0.9', filter: 'url(#cad-shadow)'
+      }));
+
+      // Base do Quadro (Chapa de Fundo com tom da foto #c5c9d0)
+      g.appendChild(this.el('rect', {
+        x: qx, y: qy, width: qw, height: qh, rx: rx,
+        fill: '#c6cad0', stroke: '#475569', 'stroke-width': 10
+      }));
+
+      // Friso interno com acabamento usinado
+      g.appendChild(this.el('rect', {
+        x: qx + 8, y: qy + 8, width: qw - 16, height: qh - 16, rx: rx - 6,
+        fill: 'none', stroke: '#ffffff', 'stroke-width': 2, opacity: '0.45'
+      }));
+
+      // 4 Parafusos Estruturais Robustos dos Cantos com Arruela Rebaixada (Padrão da Foto)
+      const cornerScrews = [
+        { cx: qx + 42, cy: qy + 42 },
+        { cx: qx + qw - 42, cy: qy + 42 },
+        { cx: qx + 42, cy: qy + qh - 42 },
+        { cx: qx + qw - 42, cy: qy + qh - 42 }
+      ];
+
+      cornerScrews.forEach(sc => {
+        // Cavidade rebaixada (counterbore)
+        g.appendChild(this.el('circle', {
+          cx: sc.cx, cy: sc.cy, r: 16,
+          fill: '#475569', stroke: '#1e293b', 'stroke-width': 2
+        }));
+        // Anel de arruela
+        g.appendChild(this.el('circle', {
+          cx: sc.cx, cy: sc.cy, r: 12,
+          fill: '#64748b', stroke: '#334155', 'stroke-width': 1
+        }));
+        // Cabeça do parafuso em aço escovado
+        g.appendChild(this.el('circle', {
+          cx: sc.cx, cy: sc.cy, r: 8.5,
+          fill: 'url(#screw-steel)', stroke: '#1e293b', 'stroke-width': 1
+        }));
+        // Fenda Phillips profunda
+        g.appendChild(this.el('line', {
+          x1: sc.cx - 5.5, y1: sc.cy, x2: sc.cx + 5.5, y2: sc.cy,
+          stroke: '#0f172a', 'stroke-width': 2.2
+        }));
+        g.appendChild(this.el('line', {
+          x1: sc.cx, y1: sc.cy - 5.5, x2: sc.cx, y2: sc.cy + 5.5,
+          stroke: '#0f172a', 'stroke-width': 2.2
+        }));
+      });
+
+      // 2. Três Trilhos DIN 35mm Perfurados em Aço Zincado (Idênticos aos da foto)
+      const dinRails = [
+        { y: 155, label: 'Trilho Superior (Entrada / DPS / DR Geral)' },
+        { y: 365, label: 'Trilho Intermediário (Circuitos Terminais)' },
+        { y: 575, label: 'Trilho Inferior (Cargas Especiais / DRs)' }
+      ];
+
+      const railX = qx + 35;
+      const railW = qw - 70;
+      const railH = 38;
+
+      dinRails.forEach((rail) => {
+        const ry = rail.y;
+
+        // Base do Trilho DIN Perfurado
+        g.appendChild(this.el('rect', {
+          x: railX, y: ry, width: railW, height: railH, rx: 2,
+          fill: 'url(#din-rail-steel)', stroke: '#475569', 'stroke-width': 1.5,
+          filter: 'drop-shadow(0 3px 4px rgba(0,0,0,0.35))'
+        }));
+
+        // Borda superior em relevo (reflexo cromado)
+        g.appendChild(this.el('line', {
+          x1: railX + 2, y1: ry + 3, x2: railX + railW - 2, y2: ry + 3,
+          stroke: '#ffffff', 'stroke-width': 1.2, opacity: '0.8'
+        }));
+
+        // Canal central rebaixado
+        g.appendChild(this.el('rect', {
+          x: railX + 4, y: ry + 12, width: railW - 8, height: 14, rx: 1,
+          fill: '#94a3b8', stroke: '#475569', 'stroke-width': 0.8
+        }));
+
+        // Borda inferior com sombra
+        g.appendChild(this.el('line', {
+          x1: railX + 2, y1: ry + railH - 2, x2: railX + railW - 2, y2: ry + railH - 2,
+          stroke: '#334155', 'stroke-width': 1.5, opacity: '0.9'
+        }));
+
+        // Furos / Oblongos ovais perfurados de fixação a cada 38px
+        for (let hx = railX + 26; hx < railX + railW - 26; hx += 38) {
+          g.appendChild(this.el('rect', {
+            x: hx - 8, y: ry + 15, width: 16, height: 8, rx: 4,
+            fill: '#334155', stroke: '#0f172a', 'stroke-width': 0.8
+          }));
+        }
+
+        // Presilhas / Batentes finais pretos (Postes de ancoragem DIN) nas pontas esquerda e direita
+        // Esquerda
+        g.appendChild(this.el('path', {
+          d: `M ${railX - 10} ${ry - 12} L ${railX + 16} ${ry - 12} L ${railX + 16} ${ry + railH + 12} L ${railX - 10} ${ry + railH + 12} Z`,
+          fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 1.5, rx: 2
+        }));
+        g.appendChild(this.el('rect', {
+          x: railX - 4, y: ry + 10, width: 12, height: 18, rx: 2,
+          fill: '#475569', stroke: '#0f172a', 'stroke-width': 1
+        }));
+
+        // Direita
+        g.appendChild(this.el('path', {
+          d: `M ${railX + railW - 16} ${ry - 12} L ${railX + railW + 10} ${ry - 12} L ${railX + railW + 10} ${ry + railH + 12} L ${railX + railW - 16} ${ry + railH + 12} Z`,
+          fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 1.5, rx: 2
+        }));
+        g.appendChild(this.el('rect', {
+          x: railX + railW - 8, y: ry + 10, width: 12, height: 18, rx: 2,
+          fill: '#475569', stroke: '#0f172a', 'stroke-width': 1
+        }));
+      });
+
+      this.enclosureLayer.appendChild(g);
+    }
+
     render(simulationReport = null) {
       if (simulationReport !== null) {
         this.lastSimulationReport = simulationReport;
       } else {
         simulationReport = this.lastSimulationReport;
+      }
+
+      if (this.enclosureLayer) {
+        this.enclosureLayer.innerHTML = '';
+        if (this.showEnclosure) {
+          this.renderEnclosure();
+        }
       }
 
       this.wiresLayer.innerHTML = '';
@@ -1340,8 +1661,21 @@
           fill: 'none'
         });
 
+        if (this.drawingWire) {
+          wireElem.style.cursor = 'crosshair';
+          wireElem.setAttribute('title', '⚡ Clique para fazer Interseção / Emenda neste cabo');
+        }
+
         wireElem.addEventListener('pointerdown', e => {
+          if (e.button !== 0) return;
           e.stopPropagation();
+
+          if (this.drawingWire) {
+            const cur = this.clientToSvg(e);
+            this.spliceWireAt(w, { x: this.snap(cur.x), y: this.snap(cur.y) });
+            return;
+          }
+
           this.selected = { type: 'wire', id: w.id };
           this.render();
           this.onSelectionChange(w);
@@ -1471,10 +1805,19 @@
             }
 
             if (!this.drawingWire) {
+              // Copia automaticamente a cor do borne clicado para o condutor ativo
+              let adoptedColor = this.activeWireColor;
+              if (t.type && WIRE_COLORS[t.type]) {
+                adoptedColor = t.type;
+                this.activeWireColor = adoptedColor;
+                const colorSelect = document.getElementById('wire-color-select');
+                if (colorSelect) colorSelect.value = adoptedColor;
+              }
+
               this.drawingWire = {
                 from: { pid: p.id, idx: t.idx },
                 points: [],
-                color: this.activeWireColor,
+                color: adoptedColor,
                 gauge: this.activeWireGauge
               };
               sound.playClick();
@@ -1537,13 +1880,21 @@
       else if (['rcd2', 'rcd4'].includes(p.kind)) {
         this.renderRCD(p, g, w, h, isSelected, props);
       }
-      // 3. DPS CLASSE II
-      else if (p.kind === 'spd') {
+      // 3. DPS CLASSE II (1P ou 3P)
+      else if (p.kind === 'spd' || p.kind === 'spd3') {
         this.renderSPD(p, g, w, h, isSelected, props);
       }
       // 4. BARRAMENTOS DE NEUTRO E TERRA
       else if (p.kind === 'neutral_bus' || p.kind === 'earth_bus') {
         this.renderBusbar(p, g, w, h, isSelected);
+      }
+      // 4.5 BARRAMENTOS PENTE (1P, 2P, 3P)
+      else if (['comb_1p', 'comb_2p', 'comb_3p'].includes(p.kind)) {
+        this.renderCombBusbar(p, g, w, h, isSelected, props);
+      }
+      // 4.6 CONECTOR DE EMENDA / DERIVAÇÃO DE CABOS
+      else if (p.kind === 'wire_junction') {
+        this.renderWireJunction(p, g, w, h, isSelected, props);
       }
       // 5. PADRÕES DE ENTRADA (REDE MONO, BI, TRI)
       else if (p.kind.startsWith('source')) {
@@ -1578,7 +1929,7 @@
       }
     }
 
-    // --- DISJUNTOR DIN MODULAR REALISTA ---
+    // --- DISJUNTOR DIN MODULAR REALISTA (PADRÃO STECK / SCHNEIDER / SIEMENS) ---
     renderBreaker(p, g, w, h, isSelected, props) {
       const numPoles = p.kind === 'breaker3' ? 3 : (p.kind === 'breaker2' ? 2 : 1);
       const poleW = w / numPoles;
@@ -1606,6 +1957,12 @@
         g.appendChild(this.el('rect', {
           x: px + 3, y: 18, width: poleW - 6, height: h - 36, rx: 3,
           fill: 'url(#breaker-front-plate)', stroke: '#cbd5e1', 'stroke-width': 0.8
+        }));
+
+        // Faixa azul superior característica da marca (Padrão Steck / Schneider / Siemens)
+        g.appendChild(this.el('rect', {
+          x: px + 4, y: 20, width: poleW - 8, height: 4.5, rx: 1,
+          fill: '#0284c7'
         }));
 
         // Túnel do borne superior (cavidade do cabo)
@@ -1708,7 +2065,7 @@
       }, props.tripped ? 'TRIP' : (props.isOn ? 'LIGADO' : 'DESL.')));
     }
 
-    // --- INTERRUPTOR DIFERENCIAL RESIDUAL (DR) ---
+    // --- INTERRUPTOR DIFERENCIAL RESIDUAL (DR) COM MANOPLA VERMELHA E BOTÃO TESTE RETANGULAR ---
     renderRCD(p, g, w, h, isSelected, props) {
       // Corpo DIN do DR
       g.appendChild(this.el('rect', {
@@ -1723,6 +2080,12 @@
         fill: 'url(#breaker-front-plate)', stroke: '#cbd5e1', 'stroke-width': 0.8
       }));
 
+      // Faixa horizontal vermelha superior característica do DR (Padrão da Foto)
+      g.appendChild(this.el('rect', {
+        x: 6, y: 18, width: w - 12, height: 5, rx: 1.5,
+        fill: '#dc2626'
+      }));
+
       // Túneis dos Bornes superiores e inferiores
       p.terms.forEach(t => {
         const ty = t.y < h / 2 ? 2 : h - 16;
@@ -1731,12 +2094,12 @@
         }));
       });
 
-      // Alavanca mecânica do DR
-      const leverW = w * 0.45;
+      // Alavanca mecânica Vermelha do DR (Identica à Foto)
+      const leverW = Math.min(w * 0.45, 50);
       const leverY = props.isOn ? (h / 2 - 10) : (h / 2 + 4);
       const lever = this.el('rect', {
         x: 10, y: leverY, width: leverW, height: 20, rx: 4,
-        class: 'cad-actionable', fill: 'url(#lever-black)', stroke: '#0f172a', style: 'cursor: pointer;'
+        class: 'cad-actionable', fill: 'url(#lever-red)', stroke: '#991b1b', 'stroke-width': 1.2, style: 'cursor: pointer;'
       });
       lever.addEventListener('pointerdown', ev => {
         ev.stopPropagation();
@@ -1750,16 +2113,16 @@
       g.appendChild(lever);
 
       g.appendChild(this.el('text', {
-        x: 10 + leverW / 2, y: leverY + 13, 'text-anchor': 'middle',
-        fill: props.isOn ? '#86efac' : '#fca5a5', 'font-size': '8.5px', 'font-weight': 'bold', 'pointer-events': 'none'
-      }, props.isOn ? 'ON' : 'OFF'));
+        x: 10 + leverW / 2, y: leverY + 13.5, 'text-anchor': 'middle',
+        fill: '#ffffff', 'font-size': '8.5px', 'font-weight': 'bold', 'pointer-events': 'none'
+      }, props.isOn ? 'I-ON' : '0-OFF'));
 
-      // Botão de TESTE (T) Ergonômico em Azul com Borda em Relevo
-      const testX = w - 24;
-      const testY = h / 2;
-      const testBtn = this.el('circle', {
-        cx: testX, cy: testY, r: 12,
-        class: 'cad-actionable', fill: '#0284c7', stroke: '#38bdf8', 'stroke-width': 1.5, style: 'cursor: pointer;'
+      // Botão de TESTE (T) Retangular Vermelho em Relevo (Padrão da Foto)
+      const testX = 10;
+      const testY = 28;
+      const testBtn = this.el('rect', {
+        x: testX, y: testY, width: 26, height: 14, rx: 3,
+        class: 'cad-actionable', fill: 'url(#lever-red)', stroke: '#991b1b', 'stroke-width': 1.2, style: 'cursor: pointer;'
       });
       testBtn.addEventListener('pointerdown', ev => {
         ev.stopPropagation();
@@ -1772,59 +2135,108 @@
       });
       g.appendChild(testBtn);
       g.appendChild(this.el('text', {
-        x: testX, y: testY + 4, 'text-anchor': 'middle',
-        fill: '#ffffff', 'font-size': '11px', 'font-weight': '900', 'pointer-events': 'none'
-      }, 'T'));
+        x: testX + 13, y: testY + 10, 'text-anchor': 'middle',
+        fill: '#ffffff', 'font-size': '8.5px', 'font-weight': '900', 'pointer-events': 'none'
+      }, 'TEST'));
 
-      g.appendChild(this.el('text', {
-        x: testX, y: testY + 18, 'text-anchor': 'middle',
-        fill: '#475569', 'font-size': '6.5px', 'font-weight': 'bold'
-      }, 'TESTE'));
+      // Esquema esquemático do transformador toroidal do DR gravado a laser
+      const diagX = w - 40;
+      const diagY = h / 2 + 5;
+      g.appendChild(this.el('circle', {
+        cx: diagX, cy: diagY, r: 12,
+        fill: 'none', stroke: '#94a3b8', 'stroke-width': 1.2
+      }));
+      g.appendChild(this.el('line', {
+        x1: diagX - 16, y1: diagY, x2: diagX + 16, y2: diagY,
+        stroke: '#94a3b8', 'stroke-width': 1, 'stroke-dasharray': '2 2'
+      }));
+      g.appendChild(this.el('rect', {
+        x: diagX - 5, y: diagY + 14, width: 10, height: 6, rx: 1,
+        fill: 'none', stroke: '#94a3b8', 'stroke-width': 0.8
+      }));
 
       // Serigrafia Técnica: IDR 30mA
       g.appendChild(this.el('text', {
-        x: w / 2, y: 30, 'text-anchor': 'middle',
+        x: w / 2, y: 38, 'text-anchor': 'middle',
         fill: '#1e293b', 'font-size': '8.5px', 'font-weight': 'bold'
       }, `IDR ${props.rating || 40}A — IΔn 30mA`));
+      g.appendChild(this.el('text', {
+        x: w / 2, y: 48, 'text-anchor': 'middle',
+        fill: '#64748b', 'font-size': '6.5px', 'font-weight': '600'
+      }, `Un ~230/400V [ 6000A ]`));
     }
 
-    // --- DISPOSITIVO DE PROTEÇÃO CONTRA SURTOS (DPS) ---
+    // --- DISPOSITIVO DE PROTEÇÃO CONTRA SURTOS (DPS) VERMELHO PADRÃO CLAMPER / STECK ---
     renderSPD(p, g, w, h, isSelected, props) {
-      g.appendChild(this.el('rect', {
-        x: 0, y: 0, width: w, height: h, rx: 4,
-        fill: 'url(#breaker-casing)', stroke: isSelected ? '#38bdf8' : '#94a3b8',
-        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
-      }));
+      const numPoles = p.kind === 'spd3' ? 3 : (props.poles || 1);
+      const poleW = w / numPoles;
 
-      // Cartucho frontal plugável
-      g.appendChild(this.el('rect', {
-        x: 6, y: 14, width: w - 12, height: h - 28, rx: 3,
-        fill: '#f1f5f9', stroke: '#cbd5e1', 'stroke-width': 1
-      }));
+      for (let i = 0; i < numPoles; i++) {
+        const px = i * poleW;
 
-      // Janela de Estado da Proteção (Verde = Ativo / Vermelho = Esgotado)
-      g.appendChild(this.el('rect', {
-        x: w / 2 - 14, y: 32, width: 28, height: 16, rx: 2,
-        fill: props.ok !== false ? '#22c55e' : '#ef4444',
-        stroke: '#0f172a', 'stroke-width': 1
-      }));
+        // Base modular em vermelho vivo Clamper/Steck
+        g.appendChild(this.el('rect', {
+          x: px, y: 0, width: poleW, height: h, rx: 4,
+          fill: 'url(#dps-red-casing)', stroke: isSelected ? '#38bdf8' : '#7f1d1d',
+          'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+        }));
 
-      // Raio ⚡ em relevo amarelo vivo
-      g.appendChild(this.el('text', {
-        x: w / 2, y: 44, 'text-anchor': 'middle',
-        fill: '#fef08a', 'font-size': '14px', 'font-weight': 'bold'
-      }, '⚡'));
+        // Cartucho Vermelho Frontal plugável
+        g.appendChild(this.el('rect', {
+          x: px + 4, y: 14, width: poleW - 8, height: h - 28, rx: 3,
+          fill: 'url(#dps-red-cartridge)', stroke: '#991b1b', 'stroke-width': 1
+        }));
 
-      // Inscrição técnica
-      g.appendChild(this.el('text', {
-        x: w / 2, y: 64, 'text-anchor': 'middle',
-        fill: '#0f172a', 'font-size': '7.5px', 'font-weight': 'bold'
-      }, 'DPS CLASSE II'));
+        // Alça do cartucho
+        g.appendChild(this.el('rect', {
+          x: px + poleW / 2 - 10, y: 16, width: 20, height: 4, rx: 2,
+          fill: '#7f1d1d'
+        }));
 
-      g.appendChild(this.el('text', {
-        x: w / 2, y: 76, 'text-anchor': 'middle',
-        fill: '#475569', 'font-size': '6.5px', 'font-weight': 'bold'
-      }, 'Uc 275V~ | 45kA'));
+        // Janela de Inspeção Visual (Verde = Operacional / Vermelho = Queimado)
+        const isOk = props.ok !== false;
+        g.appendChild(this.el('rect', {
+          x: px + poleW / 2 - 12, y: 26, width: 24, height: 12, rx: 2,
+          fill: isOk ? '#16a34a' : '#ef4444',
+          stroke: '#0f172a', 'stroke-width': 1
+        }));
+
+        // Raio ⚡ amarelo em relevo
+        g.appendChild(this.el('text', {
+          x: px + poleW / 2, y: 35.5, 'text-anchor': 'middle',
+          fill: '#fef08a', 'font-size': '10px', 'font-weight': 'bold', 'pointer-events': 'none'
+        }, '⚡'));
+
+        // Identificação Clamper e Modelo
+        g.appendChild(this.el('text', {
+          x: px + poleW / 2, y: 52, 'text-anchor': 'middle',
+          fill: '#ffffff', 'font-size': '7.5px', 'font-weight': '900', 'font-family': 'sans-serif'
+        }, 'CLAMPER'));
+
+        g.appendChild(this.el('text', {
+          x: px + poleW / 2, y: 62, 'text-anchor': 'middle',
+          fill: '#fee2e2', 'font-size': '6.5px', 'font-weight': 'bold'
+        }, 'VCL 275V'));
+
+        // Especificações de corrente de surto gravadas a laser
+        g.appendChild(this.el('text', {
+          x: px + poleW / 2, y: 72, 'text-anchor': 'middle',
+          fill: '#ffffff', 'font-size': '6px', 'font-weight': 'bold'
+        }, 'Imax 45kA'));
+
+        g.appendChild(this.el('text', {
+          x: px + poleW / 2, y: 81, 'text-anchor': 'middle',
+          fill: '#fecaca', 'font-size': '5.5px'
+        }, 'In 20kA | Cl. II'));
+
+        // Túneis dos bornes (superior e inferior)
+        g.appendChild(this.el('rect', {
+          x: px + poleW / 2 - 8, y: 2, width: 16, height: 10, rx: 2, fill: '#1e293b'
+        }));
+        g.appendChild(this.el('rect', {
+          x: px + poleW / 2 - 8, y: h - 12, width: 16, height: 10, rx: 2, fill: '#1e293b'
+        }));
+      }
     }
 
     // --- BARRAMENTO DE NEUTRO E TERRA (COM SUPORTE DIN) ---
@@ -1855,6 +2267,126 @@
         x: w / 2, y: 26, 'text-anchor': 'middle',
         fill: '#451a03', 'font-size': '8px', 'font-weight': 'bold', 'font-family': 'monospace'
       }, busLabel));
+    }
+
+    // --- BARRAMENTO TIPO PENTE UNIPOLAR / BIPOLAR / TRIPOLAR ---
+    renderCombBusbar(p, g, w, h, isSelected, props) {
+      const is1P = p.kind === 'comb_1p';
+      const is2P = p.kind === 'comb_2p';
+      const is3P = p.kind === 'comb_3p';
+      const rating = props.rating || 63;
+      const typeLabel = is1P ? 'PENTE 1P (FASE)' : (is2P ? 'PENTE 2P (BIFÁSICO L1/L2)' : 'PENTE 3P (TRIFÁSICO L1/L2/L3)');
+
+      // 1. Dentes / Pinos condutores de Cobre Eletrolítico Maciço saindo para baixo
+      p.terms.forEach((t, i) => {
+        // Haste do pino de cobre
+        g.appendChild(this.el('rect', {
+          x: t.x - 5, y: 14, width: 10, height: 26, rx: 2,
+          fill: 'url(#bus-copper)', stroke: '#854d0e', 'stroke-width': 0.8
+        }));
+
+        // Chanfro na ponta do pino
+        g.appendChild(this.el('polygon', {
+          points: `${t.x - 5},${40} ${t.x + 5},${40} ${t.x + 3},${42} ${t.x - 3},${42}`,
+          fill: '#b45309'
+        }));
+
+        // Marcador da fase no pino
+        let phaseMarker = 'F';
+        let markerColor = '#1e242b';
+        if (is2P) {
+          phaseMarker = (i % 2 === 0) ? 'L1' : 'L2';
+          markerColor = (i % 2 === 0) ? '#0f172a' : '#b91c1c';
+        } else if (is3P) {
+          const mod = i % 3;
+          phaseMarker = mod === 0 ? 'L1' : (mod === 1 ? 'L2' : 'L3');
+          markerColor = mod === 0 ? '#0f172a' : (mod === 1 ? '#b91c1c' : '#475569');
+        }
+
+        g.appendChild(this.el('rect', {
+          x: t.x - 6, y: 18, width: 12, height: 10, rx: 2,
+          fill: markerColor, stroke: '#ffffff', 'stroke-width': 0.5
+        }));
+        g.appendChild(this.el('text', {
+          x: t.x, y: 26, 'text-anchor': 'middle',
+          fill: '#ffffff', 'font-size': '6.5px', 'font-weight': '900', 'font-family': 'monospace'
+        }, phaseMarker));
+      });
+
+      // 2. Perfil Isolante Termoplástico Antichama (Corpo Horizontal)
+      g.appendChild(this.el('rect', {
+        x: 4, y: 0, width: w - 8, height: 20, rx: 4,
+        fill: '#e2e8f0', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1, filter: 'url(#cad-shadow)'
+      }));
+
+      // Friso superior de reforço mecânico
+      g.appendChild(this.el('rect', {
+        x: 6, y: 2, width: w - 12, height: 4, rx: 1.5,
+        fill: '#cbd5e1'
+      }));
+
+      // 3. Tampas Isolantes de Fechamento Lateral (End Caps)
+      g.appendChild(this.el('rect', {
+        x: 0, y: -1, width: 6, height: 22, rx: 2,
+        fill: '#eab308', stroke: '#ca8a04', 'stroke-width': 0.8
+      }));
+      g.appendChild(this.el('rect', {
+        x: w - 6, y: -1, width: 6, height: 22, rx: 2,
+        fill: '#eab308', stroke: '#ca8a04', 'stroke-width': 0.8
+      }));
+
+      // 4. Serigrafia Técnica impressa a laser
+      g.appendChild(this.el('text', {
+        x: w / 2, y: 13, 'text-anchor': 'middle',
+        fill: '#1e293b', 'font-size': '7.5px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, `${typeLabel} — ${rating}A 415V~`));
+    }
+
+    // --- CONECTOR DE EMENDA / DERIVAÇÃO / NÓ WAGO ---
+    renderWireJunction(p, g, w, h, isSelected, props) {
+      const cx = w / 2;
+      const cy = h / 2;
+      const jColor = WIRE_COLORS[props.color]?.hex || '#f59e0b';
+
+      // 1. Corpo translúcido compacto estilo Conector WAGO 221
+      g.appendChild(this.el('rect', {
+        x: 2, y: 2, width: w - 4, height: h - 4, rx: 6,
+        fill: 'rgba(255, 255, 255, 0.95)',
+        stroke: isSelected ? '#38bdf8' : '#ea580c',
+        'stroke-width': isSelected ? 2 : 1.2,
+        filter: 'url(#cad-shadow)'
+      }));
+
+      // 2. Barra interna de contato estanhada
+      g.appendChild(this.el('rect', {
+        x: 6, y: 6, width: w - 12, height: h - 12, rx: 4,
+        fill: 'url(#bus-copper)', stroke: '#b45309', 'stroke-width': 0.8
+      }));
+
+      // 3. Ponto de nó / solda sólido central com anel da cor da rede
+      g.appendChild(this.el('circle', {
+        cx, cy, r: 7.5,
+        fill: jColor, stroke: '#ffffff', 'stroke-width': 1.5,
+        filter: 'url(#cad-shadow)'
+      }));
+
+      // 4. Ícone de conexão no centro
+      g.appendChild(this.el('circle', {
+        cx, cy, r: 3,
+        fill: '#ffffff'
+      }));
+
+      // 5. Linhas guias dos 4 bornes ortogonais
+      const guideLines = [
+        { x1: cx, y1: 2, x2: cx, y2: 6 },
+        { x1: cx, y1: h - 6, x2: cx, y2: h - 2 },
+        { x1: 2, y1: cy, x2: 6, y2: cy },
+        { x1: w - 6, y1: cy, x2: w - 2, y2: cy }
+      ];
+      guideLines.forEach(l => {
+        g.appendChild(this.el('line', { ...l, stroke: '#ea580c', 'stroke-width': 2, 'stroke-linecap': 'round' }));
+      });
     }
 
     // --- PADRÃO DE ENTRADA (CAIXA DE MEDIÇÃO) ---
@@ -2925,6 +3457,7 @@
       this.projectStorage = new ProjectStorageManager(this.cad, this.sim, () => this.runSimulation());
       this.multimeter = new VirtualMultimeter(this.cad, this.sim);
 
+      this.initTheme();
       this.initUI();
       this.initPalettes();
       this.initExamples();
@@ -2960,6 +3493,13 @@
       });
       document.getElementById('btn-clear-all')?.addEventListener('click', () => this.cad.clearAll());
       document.getElementById('btn-multimeter')?.addEventListener('click', () => this.multimeter.toggle());
+      document.getElementById('btn-toggle-enclosure')?.addEventListener('click', () => {
+        this.cad.showEnclosure = !this.cad.showEnclosure;
+        const btn = document.getElementById('btn-toggle-enclosure');
+        if (btn) btn.classList.toggle('active', this.cad.showEnclosure);
+        sound.playClick();
+        this.cad.render();
+      });
 
       document.getElementById('btn-save-project')?.addEventListener('click', () => this.exporter.saveProjectToFile());
       const fileInput = document.getElementById('file-project-input');
@@ -3038,6 +3578,30 @@
       const modal = document.getElementById('bom-modal');
       document.getElementById('btn-close-bom')?.addEventListener('click', () => modal?.classList.remove('visible'));
       document.getElementById('btn-download-bom-csv')?.addEventListener('click', () => this.exporter.exportBOMToCsv());
+    }
+
+    initTheme() {
+      const savedTheme = localStorage.getItem('qdc_pro_theme') || 'dark';
+      this.setTheme(savedTheme);
+
+      document.getElementById('btn-theme-toggle')?.addEventListener('click', () => {
+        const isCurrentlyLight = document.body.classList.contains('light-theme');
+        const newTheme = isCurrentlyLight ? 'dark' : 'light';
+        this.setTheme(newTheme);
+      });
+    }
+
+    setTheme(theme) {
+      const btnTheme = document.getElementById('btn-theme-toggle');
+      if (theme === 'light') {
+        document.body.classList.add('light-theme');
+        if (btnTheme) btnTheme.innerHTML = '🌙 Escuro';
+      } else {
+        document.body.classList.remove('light-theme');
+        if (btnTheme) btnTheme.innerHTML = '☀️ Claro';
+      }
+      localStorage.setItem('qdc_pro_theme', theme);
+      if (this.cad) this.cad.render();
     }
 
     initPalettes() {
@@ -3316,6 +3880,7 @@
               <option value="10.0" ${w.gauge === '10.0' ? 'selected' : ''}>10,0 mm²</option>
             </select>
           </div>
+          <button id="btn-add-wire-junction" class="btn-icon success" style="width: 100%; margin-top: 10px; font-weight: bold;">⚡ Inserir Nó de Emenda / Derivação</button>
         `;
 
         if (propContent) propContent.innerHTML = html;
@@ -3329,6 +3894,16 @@
           w.gauge = e.target.value;
           this.cad.render();
           this.runSimulation();
+        });
+        document.getElementById('btn-add-wire-junction')?.addEventListener('click', () => {
+          const pA = this.cad.parts.find(p => p.id === w.a.pid);
+          const pB = this.cad.parts.find(p => p.id === w.b.pid);
+          if (!pA || !pB) return;
+          const tA = pA.terms[w.a.idx];
+          const tB = pB.terms[w.b.idx];
+          const midX = this.cad.snap((pA.x + tA.x + pB.x + tB.x) / 2);
+          const midY = this.cad.snap((pA.y + tA.y + pB.y + tB.y) / 2);
+          this.cad.spliceWireAt(w, { x: midX, y: midY });
         });
       }
     }
@@ -3481,48 +4056,135 @@
         this.cad.fitAll();
         this.runSimulation();
       } else if (type === 'qdc-complete') {
-        this.cad.addPart('source_bi');
-        const src = this.cad.parts[0];
-        src.x = 40; src.y = 80;
+        this.cad.showEnclosure = true;
+        const btnEnc = document.getElementById('btn-toggle-enclosure');
+        if (btnEnc) btnEnc.classList.add('active');
+
+        // TRILHO 1 (Superior, Y=155): DPS 3P + Disjuntor 2P Geral + IDR 4P Tetrapolar
+        this.cad.addPart('spd3');
+        const dps3 = this.cad.parts[this.cad.parts.length - 1];
+        dps3.x = 180; dps3.y = 115;
+        dps3.shortName = 'DPS 3P (45kA)';
 
         this.cad.addPart('breaker2');
-        const djGeral = this.cad.parts[1];
+        const djGeral = this.cad.parts[this.cad.parts.length - 1];
+        djGeral.x = 325; djGeral.y = 110;
         djGeral.shortName = 'GERAL 2P';
         djGeral.props.rating = 50;
-        djGeral.x = 220; djGeral.y = 80;
 
-        this.cad.addPart('rcd2');
-        const dr = this.cad.parts[2];
-        dr.x = 360; dr.y = 80;
+        this.cad.addPart('rcd4');
+        const idr1 = this.cad.parts[this.cad.parts.length - 1];
+        idr1.x = 445; idr1.y = 105;
+        idr1.shortName = 'IDR GERAL 4P';
+        idr1.props.rating = 63;
 
-        this.cad.addPart('spd');
-        const dps = this.cad.parts[3];
-        dps.x = 500; dps.y = 80;
+        // TRILHO 2 (Intermediário, Y=365): 2 Disjuntores 2P + 5 Disjuntores 1P + Barramento Pente
+        this.cad.addPart('breaker2');
+        const djBi1 = this.cad.parts[this.cad.parts.length - 1];
+        djBi1.x = 180; djBi1.y = 325;
+        djBi1.shortName = 'CIR 1 (2P 32A)';
+        djBi1.props.rating = 32;
+
+        this.cad.addPart('breaker2');
+        const djBi2 = this.cad.parts[this.cad.parts.length - 1];
+        djBi2.x = 290; djBi2.y = 325;
+        djBi2.shortName = 'CIR 2 (2P 25A)';
+        djBi2.props.rating = 25;
+
+        this.cad.addPart('breaker1');
+        const djMono1 = this.cad.parts[this.cad.parts.length - 1];
+        djMono1.x = 400; djMono1.y = 325;
+        djMono1.shortName = 'ILUM. 1 (10A)';
+        djMono1.props.rating = 10;
+
+        this.cad.addPart('breaker1');
+        const djMono2 = this.cad.parts[this.cad.parts.length - 1];
+        djMono2.x = 480; djMono2.y = 325;
+        djMono2.shortName = 'ILUM. 2 (10A)';
+        djMono2.props.rating = 10;
+
+        this.cad.addPart('breaker1');
+        const djMono3 = this.cad.parts[this.cad.parts.length - 1];
+        djMono3.x = 560; djMono3.y = 325;
+        djMono3.shortName = 'TUG SALA (16A)';
+        djMono3.props.rating = 16;
+
+        this.cad.addPart('breaker1');
+        const djMono4 = this.cad.parts[this.cad.parts.length - 1];
+        djMono4.x = 640; djMono4.y = 325;
+        djMono4.shortName = 'TUG COZ. (20A)';
+        djMono4.props.rating = 20;
+
+        this.cad.addPart('comb_1p');
+        const pente = this.cad.parts[this.cad.parts.length - 1];
+        pente.x = 400; pente.y = 290;
+
+        // TRILHO 3 (Inferior, Y=575): IDR 4P + 2 Disjuntores 2P
+        this.cad.addPart('rcd4');
+        const idr2 = this.cad.parts[this.cad.parts.length - 1];
+        idr2.x = 180; idr2.y = 525;
+        idr2.shortName = 'IDR PARCIAL 4P';
+        idr2.props.rating = 40;
+
+        this.cad.addPart('breaker2');
+        const djBi3 = this.cad.parts[this.cad.parts.length - 1];
+        djBi3.x = 360; djBi3.y = 535;
+        djBi3.shortName = 'CHUVEIRO 1 (32A)';
+        djBi3.props.rating = 32;
+
+        this.cad.addPart('breaker2');
+        const djBi4 = this.cad.parts[this.cad.parts.length - 1];
+        djBi4.x = 475; djBi4.y = 535;
+        djBi4.shortName = 'AR COND. (20A)';
+        djBi4.props.rating = 20;
+
+        // FUNDO DO QUADRO (Y=740): Barramento Terra PE e Barramento Neutro N
+        this.cad.addPart('earth_bus');
+        const ebus = this.cad.parts[this.cad.parts.length - 1];
+        ebus.x = 330; ebus.y = 730;
 
         this.cad.addPart('neutral_bus');
-        const nbus = this.cad.parts[4];
-        nbus.x = 220; nbus.y = 260;
+        const nbus = this.cad.parts[this.cad.parts.length - 1];
+        nbus.x = 540; nbus.y = 730;
 
-        this.cad.addPart('earth_bus');
-        const ebus = this.cad.parts[5];
-        ebus.x = 440; ebus.y = 260;
+        // Fios de Aterramento dos DPS para o Barramento de Terra
+        this.cad.wires.push({
+          id: 1, a: { pid: dps3.id, idx: 3 }, b: { pid: ebus.id, idx: 0 },
+          points: [{ x: 201, y: 720 }, { x: 310, y: 720 }],
+          color: 'pe', gauge: '10.0'
+        });
+        this.cad.wires.push({
+          id: 2, a: { pid: dps3.id, idx: 4 }, b: { pid: ebus.id, idx: 1 },
+          points: [{ x: 242, y: 740 }, { x: 330, y: 740 }],
+          color: 'pe', gauge: '10.0'
+        });
+        this.cad.wires.push({
+          id: 3, a: { pid: dps3.id, idx: 5 }, b: { pid: ebus.id, idx: 2 },
+          points: [{ x: 284, y: 760 }, { x: 360, y: 760 }],
+          color: 'pe', gauge: '10.0'
+        });
 
-        this.cad.addPart('shower');
-        const shower = this.cad.parts[6];
-        shower.x = 640; shower.y = 120;
+        // Interligação Geral para IDR
+        this.cad.wires.push({
+          id: 4, a: { pid: djGeral.id, idx: 2 }, b: { pid: idr1.id, idx: 0 },
+          points: [{ x: 353, y: 240 }, { x: 440, y: 240 }, { x: 440, y: 70 }, { x: 469, y: 70 }],
+          color: 'f1', gauge: '10.0'
+        });
+        this.cad.wires.push({
+          id: 5, a: { pid: djGeral.id, idx: 3 }, b: { pid: idr1.id, idx: 1 },
+          points: [{ x: 392, y: 250 }, { x: 460, y: 250 }, { x: 460, y: 80 }, { x: 503, y: 80 }],
+          color: 'f2', gauge: '10.0'
+        });
 
-        this.cad.wires.push({ id: 1, a: { pid: src.id, idx: 0 }, b: { pid: djGeral.id, idx: 0 }, points: [{ x: 130, y: 102 }, { x: 248, y: 50 }], color: 'f1', gauge: '10.0' });
-        this.cad.wires.push({ id: 2, a: { pid: src.id, idx: 1 }, b: { pid: djGeral.id, idx: 1 }, points: [{ x: 150, y: 126 }, { x: 287, y: 50 }], color: 'f2', gauge: '10.0' });
-        this.cad.wires.push({ id: 3, a: { pid: djGeral.id, idx: 2 }, b: { pid: dr.id, idx: 0 }, points: [{ x: 248, y: 210 }, { x: 388, y: 50 }], color: 'f1', gauge: '6.0' });
-        this.cad.wires.push({ id: 4, a: { pid: src.id, idx: 2 }, b: { pid: dr.id, idx: 1 }, points: [{ x: 170, y: 150 }, { x: 427, y: 50 }], color: 'n', gauge: '10.0' });
-        this.cad.wires.push({ id: 5, a: { pid: dr.id, idx: 3 }, b: { pid: nbus.id, idx: 0 }, points: [{ x: 427, y: 220 }, { x: 190, y: 283 }], color: 'n', gauge: '6.0' });
-        this.cad.wires.push({ id: 6, a: { pid: src.id, idx: 3 }, b: { pid: ebus.id, idx: 0 }, points: [{ x: 180, y: 174 }, { x: 410, y: 283 }], color: 'pe', gauge: '10.0' });
-        this.cad.wires.push({ id: 7, a: { pid: dr.id, idx: 2 }, b: { pid: shower.id, idx: 0 }, points: [{ x: 388, y: 230 }, { x: 610, y: 230 }, { x: 610, y: 148 }], color: 'f1', gauge: '6.0' });
-        this.cad.wires.push({ id: 8, a: { pid: nbus.id, idx: 4 }, b: { pid: shower.id, idx: 2 }, points: [{ x: 345, y: 340 }, { x: 620, y: 340 }, { x: 620, y: 196 }], color: 'n', gauge: '6.0' });
-        this.cad.wires.push({ id: 9, a: { pid: ebus.id, idx: 2 }, b: { pid: shower.id, idx: 1 }, points: [{ x: 505, y: 330 }, { x: 630, y: 330 }, { x: 630, y: 172 }], color: 'pe', gauge: '6.0' });
+        // Interligação do Neutro do IDR para o Barramento de Neutro
+        this.cad.wires.push({
+          id: 6, a: { pid: idr1.id, idx: 7 }, b: { pid: nbus.id, idx: 0 },
+          points: [{ x: 573, y: 250 }, { x: 740, y: 250 }, { x: 740, y: 720 }, { x: 530, y: 720 }],
+          color: 'n', gauge: '10.0'
+        });
 
-        this.cad.nextPartId = 8;
-        this.cad.nextWireId = 10;
+        this.cad.nextPartId = 20;
+        this.cad.nextWireId = 15;
         this.cad.fitAll();
         this.runSimulation();
       }
