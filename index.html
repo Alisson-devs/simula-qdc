@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#070a0e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>QDC Lab PRO — Simulador Elétrico & CAD NBR 5410</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- CABEÇALHO PRINCIPAL -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-title">
+          QDC Lab <span class="badge-version">PRO v8.0 — NBR 5410</span>
+        </div>
+        <div class="brand-sub">Simulador Físico de Instalações Elétricas Residenciais</div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="telemetry-pills">
+        <div class="pill">
+          <span class="pill-label">Potência:</span>
+          <span id="stat-power" class="pill-val">0 W</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Corrente:</span>
+          <span id="stat-current" class="pill-val">0.00 A</span>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Status:</span>
+          <span id="stat-status" class="badge-stat off">Pausa</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin: 0;">
+        <select id="system-voltage" title="Tensão Nominal do Sistema">
+          <option value="127">127V / 220V (Padrão 127V)</option>
+          <option value="220" selected>220V / 380V (Padrão 220V)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <input type="file" id="file-project-input" accept=".qdc,.json" style="display: none;">
+      <button id="btn-manage-projects" class="btn-icon success" title="Salvar e gerenciar projetos no navegador ou celular">📁 Meus Projetos</button>
+      <button id="btn-save-project" class="btn-icon" title="Baixar arquivo de backup (.qdc)">💾 Arquivo</button>
+      <button id="btn-open-project" class="btn-icon" title="Abrir arquivo do computador">📂 Abrir</button>
+      <button id="btn-export-bom" class="btn-icon" title="Gerar Lista Quantitativa de Materiais">📋 Materiais</button>
+      <button id="btn-export-png" class="btn-icon" title="Exportar imagem PNG">📸 PNG</button>
+      <button id="btn-export-svg" class="btn-icon" title="Exportar desenho SVG">📐 SVG</button>
+    </div>
+  </header>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="app-container">
+    
+    <!-- BARRA LATERAL ESQUERDA: PALETA DE COMPONENTES E CONDUTORES -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Catálogo de Componentes</span>
+        <button id="btn-close-left-sidebar" class="btn-close-drawer" title="Fechar">✕</button>
+      </div>
+
+      <div class="sidebar-scroll">
+        <!-- Abas de Categoria -->
+        <div class="palette-tabs">
+          <button class="tab-btn active" data-palette-tab="tab-qdc-items">1. Proteção</button>
+          <button class="tab-btn" data-palette-tab="tab-bus-items">2. Entrada/Barra</button>
+          <button class="tab-btn" data-palette-tab="tab-command-items">3. Comandos</button>
+          <button class="tab-btn" data-palette-tab="tab-load-items">4. Cargas</button>
+        </div>
+
+        <!-- Conteúdo das Abas (gerado dinamicamente via JS) -->
+        <div id="tab-qdc-items" class="palette-tab-content active"></div>
+        <div id="tab-bus-items" class="palette-tab-content"></div>
+        <div id="tab-command-items" class="palette-tab-content"></div>
+        <div id="tab-load-items" class="palette-tab-content"></div>
+
+        <!-- Configuração de Fiação -->
+        <div class="wire-config-card">
+          <div class="card-title">Configurar Condutor Ativo</div>
+          
+          <div class="form-group">
+            <label>Função / Cor do Fio (NBR 5410)</label>
+            <select id="wire-color-select">
+              <option value="f1">Fase 1 (Preto)</option>
+              <option value="f2">Fase 2 (Vermelho)</option>
+              <option value="f3">Fase 3 (Branco)</option>
+              <option value="n">Neutro (Azul Claro) — NBR</option>
+              <option value="pe">Terra PE (Verde) — NBR</option>
+              <option value="ret">Retorno (Amarelo)</option>
+              <option value="ret2">Retorno 2 (Laranja)</option>
+              <option value="par">Paralelo / Three-Way (Cinza)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Seção Nominal (Bitola)</label>
+            <select id="wire-gauge-select">
+              <option value="1.5">1,5 mm² (Iluminação - até 15,5A)</option>
+              <option value="2.5" selected>2,5 mm² (Tomadas TUG - até 21A)</option>
+              <option value="4.0">4,0 mm² (Cargas Médias - até 28A)</option>
+              <option value="6.0">6,0 mm² (Chuveiro/TUE - até 36A)</option>
+              <option value="10.0">10,0 mm² (Alimentação Geral - até 50A)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Exemplos Pré-configurados -->
+        <div class="wire-config-card">
+          <div class="card-title">Circuitos Prontos para Teste</div>
+          <button id="example-mono-lamp" class="btn-icon" style="width: 100%; margin-bottom: 6px;">💡 Iluminação Monofásica</button>
+          <button id="example-double-switch" class="btn-icon" style="width: 100%; margin-bottom: 6px;">💡💡 Interruptor Duplo (2 Lâmpadas)</button>
+          <button id="example-parallel" class="btn-icon" style="width: 100%; margin-bottom: 6px;">🔀 Three-Way Paralelo</button>
+          <button id="example-qdc-complete" class="btn-icon" style="width: 100%;">🛡️ QDC Completo (DR + Chuveiro)</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA CENTRAL: CANVAS CAD INTERATIVO -->
+    <section class="workspace">
+      <div class="canvas-toolbar">
+        <div class="tool-group">
+          <button id="btn-undo" class="btn-icon" title="Desfazer (Ctrl+Z)">↩️ Desfazer</button>
+          <button id="btn-redo" class="btn-icon" title="Refazer (Ctrl+Y)">↪️ Refazer</button>
+          <span style="color: var(--border-color);">|</span>
+          <button id="btn-zoom-in" class="btn-icon" title="Aproximar Zoom">🔍 +</button>
+          <button id="btn-zoom-out" class="btn-icon" title="Afastar Zoom">🔍 -</button>
+          <button id="btn-fit-all" class="btn-icon" title="Enquadrar Todos os Elementos">🎯 Ajustar</button>
+          <span style="color: var(--border-color);">|</span>
+          <button id="btn-rotate" class="btn-icon" title="Girar 90° (R)">🔄 Girar (R)</button>
+          <button id="btn-duplicate" class="btn-icon" title="Duplicar Selecionado (Ctrl+D)">📄 Duplicar</button>
+          <button id="btn-delete" class="btn-icon danger" title="Deletar Selecionado (Del)">🗑️ Deletar</button>
+          <span style="color: var(--border-color);">|</span>
+          <button id="btn-clear-wires" class="btn-icon" title="Remover todas as ligações">Limpar Fios</button>
+          <button id="btn-clear-all" class="btn-icon danger" title="Limpar todo o quadro">Limpar Tudo</button>
+        </div>
+
+        <div class="tool-group">
+          <button id="btn-multimeter" class="btn-icon" title="Exibir Multímetro Digital True RMS">📟 Multímetro</button>
+
+          <label class="switch-label">
+            <input type="checkbox" id="sim-mode-toggle">
+            <div class="switch-rail"></div>
+            Simular Corrente Real
+          </label>
+        </div>
+      </div>
+
+      <!-- SVG INTERATIVO -->
+      <svg id="board" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <!-- Rodapé do Canvas -->
+      <div class="canvas-footer">
+        <div class="canvas-hint">
+          <strong>Fiação Magnética:</strong> Clique num borne para iniciar. Clique no fundo para fazer quina 90°. Clique no borne de destino para fixar. (ESC cancela)
+        </div>
+        <div id="coord-display" class="canvas-hint">X: 0 | Y: 0</div>
+      </div>
+
+      <!-- WIDGET FLUTUANTE DO MULTÍMETRO DIGITAL -->
+      <div id="multimeter-widget" class="multimeter-widget">
+        <div class="multi-header">
+          <span class="multi-brand">⚡ MULTÍMETRO TRUE RMS</span>
+          <button id="multi-close" class="btn-close-widget">✕</button>
+        </div>
+
+        <div class="multi-lcd">
+          <div id="multi-mode" class="multi-mode">True RMS ~ VAC</div>
+          <div id="multi-val" class="multi-val">0.0 V~</div>
+          <div id="multi-status" class="multi-status">Pronto para medição</div>
+        </div>
+
+        <div class="multi-selector">
+          <button class="multi-btn active" data-multi-mode="vac">~ VAC (Tensão)</button>
+          <button class="multi-btn" data-multi-mode="cont">Ω BIP (Continuidade)</button>
+          <button class="multi-btn" data-multi-mode="amps">A~ (Corrente)</button>
+        </div>
+
+        <div class="multi-probes-actions">
+          <button id="probe-black-btn" class="probe-btn black">⚫ Conectar COM</button>
+          <button id="probe-red-btn" class="probe-btn red">🔴 Conectar V/Ω</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARRA LATERAL DIREITA: DIAGNÓSTICO, PROPRIEDADES E SEGURANÇA -->
+    <aside class="sidebar right">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Diagnóstico & Segurança</span>
+        <button id="btn-close-right-sidebar" class="btn-close-drawer" title="Fechar">✕</button>
+      </div>
+
+      <div class="sidebar-scroll">
+        <!-- Resumo do Diagnóstico -->
+        <div id="diagnostic-summary" class="diag-card warn">
+          <strong>⚠️ Simulação Desligada</strong>
+          <p>Ative a simulação para analisar tensões, corrente e verificar curto-circuito.</p>
+        </div>
+
+        <!-- Propriedades do Elemento Selecionado -->
+        <div id="properties-panel" class="properties-card">
+          <div class="card-title" id="prop-title">Propriedades</div>
+          <div id="prop-content"></div>
+        </div>
+
+        <!-- Cargas em Operação -->
+        <div class="wire-config-card">
+          <div class="card-title">Cargas Ativas & Dimensionamento (NBR 5410)</div>
+          <ul id="diagnostic-loads" class="bullet-list">
+            <li>Nenhuma carga ativa.</li>
+          </ul>
+        </div>
+
+        <!-- Alertas de Segurança & Bitolas -->
+        <div class="wire-config-card">
+          <div class="card-title">Alertas Técnicos & Bitolas de Condutores</div>
+          <ul id="diagnostic-warnings" class="bullet-list">
+            <li>Nenhum aviso ativo.</li>
+          </ul>
+        </div>
+
+        <!-- Checklist de Normas NBR 5410 -->
+        <div class="wire-config-card">
+          <div class="card-title">Checklist Norma NBR 5410</div>
+          <ul id="diagnostic-compliance" class="bullet-list">
+            <li>Aguardando análise de fiação.</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- BARRA DE NAVEGAÇÃO MÓVEL (CELULAR) -->
+  <nav class="mobile-nav-bar">
+    <button id="btn-mobile-palette" class="mobile-nav-btn active">
+      <span class="nav-icon">📦</span>
+      <span>Peças</span>
+    </button>
+    <button id="btn-mobile-sim" class="mobile-nav-btn">
+      <span class="nav-icon">⚡</span>
+      <span>Simular</span>
+    </button>
+    <button id="btn-mobile-diag" class="mobile-nav-btn">
+      <span class="nav-icon">📊</span>
+      <span>Diagnóstico</span>
+    </button>
+    <button id="btn-mobile-projects" class="mobile-nav-btn">
+      <span class="nav-icon">📁</span>
+      <span>Projetos</span>
+    </button>
+  </nav>
+
+  <!-- MODAL DE GERENCIAMENTO DE PROJETOS SALVOS (LOCALSTORAGE + CELULAR) -->
+  <div id="projects-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">📁 Meus Projetos Salvos (Navegador & Celular)</div>
+        <button id="btn-close-projects" class="btn-icon" style="padding: 2px 8px;">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Salvar Novo Projeto -->
+        <div class="save-project-box">
+          <label style="font-weight: 600; font-size: 12px; margin-bottom: 4px; display: block;">Nome do Projeto Atual:</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="input-project-name" placeholder="Ex: Casa Praia - Iluminação e QDC" style="flex: 1; padding: 8px 12px; background: var(--bg-panel); border: 1px solid var(--border-color); color: #fff; border-radius: 6px;">
+            <button id="btn-save-to-storage" class="btn-icon success">💾 Salvar Agora</button>
+          </div>
+        </div>
+
+        <div style="margin: 18px 0 8px 0; font-weight: 700; font-size: 13px; color: var(--text-secondary);">
+          Projetos Gravados na Memória:
+        </div>
+
+        <div id="saved-projects-list" class="saved-projects-grid">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-new-empty-project" class="btn-icon danger">📄 Novo Projeto em Branco</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE LISTA DE MATERIAIS (BOM) -->
+  <div id="bom-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">📋 Lista Quantitativa de Materiais (BOM)</div>
+        <button id="btn-close-bom" class="btn-icon" style="padding: 2px 8px;">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="bom-table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Descrição do Item</th>
+              <th>Quantidade Estimada</th>
+            </tr>
+          </thead>
+          <tbody id="bom-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button id="btn-download-bom-csv" class="btn-icon success">📥 Baixar Planilha CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL (STANDALONE COMPATÍVEL COM FILE:///) -->
+  <script src="js/app.bundle.js"></script>
+</body>
+</html>
