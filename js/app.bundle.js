@@ -3802,7 +3802,12 @@
     }
 
     initTheme() {
-      const savedTheme = localStorage.getItem('qdc_pro_theme') || 'light';
+      let savedTheme = localStorage.getItem('qdc_theme_v8');
+      if (!savedTheme) {
+        savedTheme = 'light';
+        localStorage.setItem('qdc_theme_v8', 'light');
+        localStorage.removeItem('qdc_pro_theme');
+      }
       this.setTheme(savedTheme);
 
       document.getElementById('btn-theme-toggle')?.addEventListener('click', () => {
@@ -3821,7 +3826,7 @@
         document.body.classList.remove('light-theme');
         if (btnTheme) btnTheme.innerHTML = '☀️ Claro';
       }
-      localStorage.setItem('qdc_pro_theme', theme);
+      localStorage.setItem('qdc_theme_v8', theme);
       if (this.cad) this.cad.render();
     }
 
