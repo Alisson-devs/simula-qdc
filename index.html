@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>QDC Lab PRO — Simulador Elétrico & CAD NBR 5410</title>
-  <link rel="stylesheet" href="css/style.css?v=3.1">
+  <link rel="stylesheet" href="css/style.css?v=3.2">
 </head>
 <body class="light-theme">
 
@@ -43,6 +43,15 @@
         <select id="system-voltage" title="Tensão Nominal do Sistema">
           <option value="127">127V / 220V (Padrão 127V)</option>
           <option value="220" selected>220V / 380V (Padrão 220V)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin: 0;">
+        <select id="select-qdc-size" title="Tamanho do Quadro QDC (Capacidade Módulos DIN - NBR 5410)">
+          <option value="12">Quadro 12 DIN (1 Trilho)</option>
+          <option value="24">Quadro 24 DIN (2 Trilhos)</option>
+          <option value="36" selected>Quadro 36 DIN (3 Trilhos)</option>
+          <option value="48">Quadro 48 DIN (4 Trilhos)</option>
         </select>
       </div>
     </div>
@@ -121,6 +130,9 @@
               <option value="4.0">4,0 mm² (Cargas Médias - até 28A)</option>
               <option value="6.0">6,0 mm² (Chuveiro/TUE - até 36A)</option>
               <option value="10.0">10,0 mm² (Alimentação Geral - até 50A)</option>
+              <option value="16.0">16,0 mm² (Alta Potência / Geral - até 68A)</option>
+              <option value="25.0">25,0 mm² (Padrão Entrada - até 89A)</option>
+              <option value="35.0">35,0 mm² (Alimentação Pesada - até 111A)</option>
             </select>
           </div>
         </div>
@@ -343,6 +355,6 @@
   </div>
 
   <!-- SCRIPT PRINCIPAL (STANDALONE COMPATÍVEL COM FILE:///) -->
-  <script src="js/app.bundle.js?v=3.1"></script>
+  <script src="js/app.bundle.js?v=3.2"></script>
 </body>
 </html>

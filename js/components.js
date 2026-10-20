@@ -397,7 +397,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'ret', label: 'Retorno / Fase', type: 'ret', x: 0, y: 45, side: 'left' },
       { id: 'n',   label: 'Neutro',         type: 'n',   x: 90, y: 45, side: 'right' }
     ],
-    defaultProps: { watts: 15, isLit: false }
+    defaultProps: { watts: 15, voltage: 127, isLit: false }
   },
 
   socket_tug: {
@@ -411,7 +411,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'pe', label: 'Terra (Centro)', type: 'pe', x: 0, y: 45, side: 'left' },
       { id: 'n',  label: 'Neutro (Esquerda)', type: 'n', x: 0, y: 65, side: 'left' }
     ],
-    defaultProps: { loadConnected: true, watts: 100 }
+    defaultProps: { loadConnected: true, watts: 100, voltage: 127 }
   },
 
   socket_tue: {
@@ -425,7 +425,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'pe', label: 'Terra',  type: 'pe', x: 0, y: 45, side: 'left' },
       { id: 'f2', label: 'Fase 2 / Neutro', type: 'f2', x: 0, y: 65, side: 'left' }
     ],
-    defaultProps: { loadConnected: true, watts: 1500 }
+    defaultProps: { loadConnected: true, watts: 1500, voltage: 220 }
   },
 
   shower: {
@@ -439,7 +439,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'pe', label: 'Terra (Obrigatório)', type: 'pe', x: 0, y: 52, side: 'left' },
       { id: 'f2', label: 'Fase 2 (ou Neutro)', type: 'f2', x: 0, y: 76, side: 'left' }
     ],
-    defaultProps: { mode: 'inverno', watts: 6800, isRunning: false } // 'desligado', 'verao' (3200W), 'inverno' (6800W)
+    defaultProps: { mode: 'inverno', watts: 6800, voltage: 220, isRunning: false } // 'desligado', 'verao' (3200W), 'inverno' (6800W)
   },
 
   fan: {
@@ -453,7 +453,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'ret_luz', label: 'Retorno Luz',   type: 'ret', x: 0, y: 55, side: 'left' },
       { id: 'n',       label: 'Neutro Comum',  type: 'n',   x: 105, y: 42, side: 'right' }
     ],
-    defaultProps: { watts: 130, fanOn: false, lightOn: false }
+    defaultProps: { watts: 130, voltage: 127, fanOn: false, lightOn: false }
   },
 
   motor: {
@@ -467,7 +467,7 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'pe', label: 'Terra', type: 'pe', x: 0, y: 48, side: 'left' },
       { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 68, side: 'left' }
     ],
-    defaultProps: { hp: '1/2 CV', watts: 550, isRunning: false }
+    defaultProps: { hp: '1/2 CV', watts: 550, voltage: 220, isRunning: false }
   },
 
   buzzer: {
@@ -480,6 +480,90 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'ret', label: 'Retorno Pulsador', type: 'ret', x: 0, y: 40, side: 'left' },
       { id: 'n',   label: 'Neutro',           type: 'n',   x: 80, y: 40, side: 'right' }
     ],
-    defaultProps: { isRinging: false }
+    defaultProps: { voltage: 127, isRinging: false }
+  },
+
+  air_conditioner: {
+    name: 'Ar Condicionado Split Inverter (9k a 18k BTU)',
+    shortName: 'AR CONDICIONADO',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 120, h: 95,
+    terms: [
+      { id: 'f1', label: 'Fase 1', type: 'f1', x: 0, y: 25, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 48, side: 'left' },
+      { id: 'f2', label: 'Fase 2 / Neutro', type: 'f2', x: 0, y: 70, side: 'left' }
+    ],
+    defaultProps: { watts: 1400, voltage: 220, btu: '12000 BTU', isRunning: false }
+  },
+
+  washing_machine: {
+    name: 'Máquina de Lavar Roupas (Lava e Seca)',
+    shortName: 'MÁQUINA DE LAVAR',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 100, h: 105,
+    terms: [
+      { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 25, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 52, side: 'left' },
+      { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 80, side: 'left' }
+    ],
+    defaultProps: { watts: 1200, voltage: 127, isRunning: false }
+  },
+
+  refrigerator: {
+    name: 'Geladeira / Refrigerador Frost Free',
+    shortName: 'GELADEIRA DUPLEX',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 95, h: 120,
+    terms: [
+      { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 30, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 60, side: 'left' },
+      { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 90, side: 'left' }
+    ],
+    defaultProps: { watts: 300, voltage: 127, isRunning: false }
+  },
+
+  freezer: {
+    name: 'Freezer Horizontal / Vertical',
+    shortName: 'FREEZER',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 110, h: 95,
+    terms: [
+      { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 25, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 48, side: 'left' },
+      { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 70, side: 'left' }
+    ],
+    defaultProps: { watts: 400, voltage: 127, isRunning: false }
+  },
+
+  electric_iron: {
+    name: 'Ferro Elétrico de Passar a Vapor',
+    shortName: 'FERRO DE PASSAR',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 100, h: 85,
+    terms: [
+      { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 22, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 42, side: 'left' },
+      { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 64, side: 'left' }
+    ],
+    defaultProps: { watts: 1500, voltage: 127, isRunning: false }
+  },
+
+  microwave: {
+    name: 'Forno Micro-ondas Digital',
+    shortName: 'MICRO-ONDAS',
+    category: 'load',
+    categoryLabel: 'Cargas & Aparelhos',
+    w: 110, h: 85,
+    terms: [
+      { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 22, side: 'left' },
+      { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 42, side: 'left' },
+      { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 64, side: 'left' }
+    ],
+    defaultProps: { watts: 1400, voltage: 127, isRunning: false }
   }
 };

@@ -420,13 +420,65 @@ export class CircuitSimulator {
   }
 
   // Avalia o funcionamento de cada carga (lâmpada, tomada, chuveiro, etc.)
-  evaluateLoad(p, nets, report) {
+  evaluateLoad(p, nets, report, wires = []) {
     const props = p.props || {};
 
     const hasTerm = (termId, netName) => {
       const t = p.terms.find(item => item.id === termId);
       if (!t) return false;
       return nets[netName].has(`${p.id}:${t.idx}`);
+    };
+
+    // Tensão nominal escolhida pelo usuário para a carga
+    const defaultV = (p.kind === 'shower' || p.kind === 'socket_tue') ? 220 : (this.systemVoltage === 127 ? 127 : 220);
+    const nominalVoltage = Number(props.voltage) || defaultV;
+    props.voltage = nominalVoltage;
+
+    const getAppliedVoltage = () => {
+      const activePhases = new Set();
+      let hasN = false;
+      p.terms.forEach(t => {
+        const key = `${p.id}:${t.idx}`;
+        if (nets.f1?.has(key)) activePhases.add('f1');
+        if (nets.f2?.has(key)) activePhases.add('f2');
+        if (nets.f3?.has(key)) activePhases.add('f3');
+        if (nets.n?.has(key)) hasN = true;
+      });
+      if (activePhases.size >= 2) {
+        return this.systemVoltage === 127 ? 220 : 380;
+      }
+      if (activePhases.size === 1 && hasN) {
+        return this.systemVoltage === 127 ? 127 : 220;
+      }
+      return 0;
+    };
+
+    const handleLoadPowerAndCurrent = (basePower, label) => {
+      const appliedV = getAppliedVoltage();
+      if (appliedV <= 0) return;
+
+      if (nominalVoltage === 127 && appliedV >= 220) {
+        report.warnings.push(`🚨 SOBRETENSÃO CRÍTICA: Carga "${p.shortName || p.name}" (#${p.id}) de 127V está recebendo ${appliedV}V! Risco de QUEIMA IMEDIATA / INCÊNDIO!`);
+      } else if (nominalVoltage === 220 && appliedV === 127) {
+        report.warnings.push(`⚠️ SUBTENSÃO: Carga "${p.shortName || p.name}" (#${p.id}) de 220V recebendo 127V. Operação com rendimento e força reduzidos (~33%).`);
+      }
+
+      let effectivePower = basePower;
+      if (nominalVoltage === 220 && appliedV === 127) {
+        effectivePower = Math.round(basePower * (127 / 220) * (127 / 220));
+      } else if (nominalVoltage === 127 && appliedV >= 220) {
+        effectivePower = Math.round(basePower * (appliedV / 127) * (appliedV / 127));
+      }
+
+      const current = effectivePower / appliedV;
+      report.totalPower += effectivePower;
+      report.totalCurrent += current;
+      report.loads.push({
+        name: `${label} (${nominalVoltage}V)`,
+        power: effectivePower,
+        current,
+        voltage: appliedV
+      });
     };
 
     switch (p.kind) {
@@ -437,11 +489,7 @@ export class CircuitSimulator {
 
         props.isLit = isPowered;
         if (isPowered) {
-          const power = props.watts || 15;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Lâmpada LED (${p.id})`, power, current, voltage: this.systemVoltage === 127 ? 127 : 220 });
+          handleLoadPowerAndCurrent(props.watts || 15, `Lâmpada LED (${p.id})`);
         }
         break;
       }
@@ -458,19 +506,15 @@ export class CircuitSimulator {
           report.warnings.push(`⚠️ Tomada TUG (${p.id}) funcionando sem condutor de proteção (Terra PE). Risco de choque elétrico.`);
         }
 
-        if (isPowered && props.loadConnected) {
-          const power = props.watts || 100;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Tomada TUG 10A (${p.id})`, power, current, voltage: this.systemVoltage === 127 ? 127 : 220 });
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 100, `Tomada TUG 10A (${p.id})`);
         }
         break;
       }
 
       case 'socket_tue': {
-        const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2');
-        const hasF2 = hasTerm('f2', 'f2') || hasTerm('f2', 'f1') || hasTerm('f2', 'n');
+        const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2') || hasTerm('f1', 'f3');
+        const hasF2 = hasTerm('f2', 'f1') || hasTerm('f2', 'f2') || hasTerm('f2', 'f3') || hasTerm('f2', 'n');
         const hasPE = hasTerm('pe', 'pe');
 
         const isPowered = hasF1 && hasF2;
@@ -480,20 +524,15 @@ export class CircuitSimulator {
           report.warnings.push(`⚠️ Tomada TUE 20A (${p.id}) sem condutor Terra PE obrigatório!`);
         }
 
-        if (isPowered && props.loadConnected) {
-          const power = props.watts || 1500;
-          const voltage = 220;
-          const current = power / voltage;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Tomada TUE 20A (${p.id})`, power, current, voltage });
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 2200, `Tomada TUE 20A (${p.id})`);
         }
         break;
       }
 
       case 'shower': {
-        const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2');
-        const hasF2 = hasTerm('f2', 'f2') || hasTerm('f2', 'n');
+        const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2') || hasTerm('f1', 'f3');
+        const hasF2 = hasTerm('f2', 'f1') || hasTerm('f2', 'f2') || hasTerm('f2', 'f3') || hasTerm('f2', 'n');
         const hasPE = hasTerm('pe', 'pe');
 
         const isPowered = hasF1 && hasF2;
@@ -504,19 +543,15 @@ export class CircuitSimulator {
         }
 
         if (props.isRunning) {
-          let power = props.mode === 'inverno' ? 6800 : 3200;
-          let voltage = 220;
-          let current = power / voltage;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Chuveiro Elétrico (${props.mode})`, power, current, voltage });
+          const basePower = props.mode === 'inverno' ? (props.watts || 6800) : Math.round((props.watts || 6800) * 0.47);
+          handleLoadPowerAndCurrent(basePower, `Chuveiro Elétrico (${props.mode})`);
         }
         break;
       }
 
       case 'fan': {
-        const motLive = hasTerm('ret_mot', 'f1') || hasTerm('ret_mot', 'f2');
-        const luzLive = hasTerm('ret_luz', 'f1') || hasTerm('ret_luz', 'f2');
+        const motLive = hasTerm('ret_mot', 'f1') || hasTerm('ret_mot', 'f2') || hasTerm('ret_mot', 'f3');
+        const luzLive = hasTerm('ret_luz', 'f1') || hasTerm('ret_luz', 'f2') || hasTerm('ret_luz', 'f3');
         const hasN = hasTerm('n', 'n');
 
         props.fanOn = motLive && hasN;
@@ -527,17 +562,13 @@ export class CircuitSimulator {
         if (props.lightOn) power += 50;
 
         if (power > 0) {
-          const voltage = this.systemVoltage === 127 ? 127 : 220;
-          const current = power / voltage;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Ventilador de Teto`, power, current, voltage });
+          handleLoadPowerAndCurrent(power, 'Ventilador de Teto');
         }
         break;
       }
 
       case 'motor': {
-        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2');
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
         const hasN = hasTerm('n', 'n');
         const hasPE = hasTerm('pe', 'pe');
 
@@ -549,12 +580,7 @@ export class CircuitSimulator {
         }
 
         if (isPowered) {
-          const power = props.watts || 550;
-          const voltage = this.systemVoltage === 127 ? 127 : 220;
-          const current = power / voltage;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          report.loads.push({ name: `Motor / Bomba D'água`, power, current, voltage });
+          handleLoadPowerAndCurrent(props.watts || 750, `Motor / Bomba D'água`);
         }
         break;
       }

@@ -514,7 +514,7 @@
         { id: 'ret', label: 'Retorno / Fase', type: 'ret', x: 0, y: 45 },
         { id: 'n',   label: 'Neutro',         type: 'n',   x: 90, y: 45 }
       ],
-      defaultProps: { watts: 15, isLit: false }
+      defaultProps: { watts: 15, voltage: 127, isLit: false }
     },
     socket_tug: {
       name: 'Tomada de Uso Geral TUG 10A (2P+T)',
@@ -527,7 +527,7 @@
         { id: 'pe', label: 'Terra (Centro)', type: 'pe', x: 0, y: 45 },
         { id: 'n',  label: 'Neutro (Esquerda)', type: 'n', x: 0, y: 65 }
       ],
-      defaultProps: { loadConnected: true, watts: 100 }
+      defaultProps: { loadConnected: true, watts: 100, voltage: 127 }
     },
     socket_tue: {
       name: 'Tomada Especial TUE 20A (2P+T 220V)',
@@ -540,7 +540,7 @@
         { id: 'pe', label: 'Terra',  type: 'pe', x: 0, y: 45 },
         { id: 'f2', label: 'Fase 2 / Neutro', type: 'f2', x: 0, y: 65 }
       ],
-      defaultProps: { loadConnected: true, watts: 1500 }
+      defaultProps: { loadConnected: true, watts: 1500, voltage: 220 }
     },
     shower: {
       name: 'Chuveiro Elétrico Potente',
@@ -553,7 +553,7 @@
         { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 52 },
         { id: 'f2', label: 'Fase 2 / Neutro', type: 'f2', x: 0, y: 76 }
       ],
-      defaultProps: { mode: 'inverno', watts: 6800, isRunning: false }
+      defaultProps: { mode: 'inverno', watts: 6800, voltage: 220, isRunning: false }
     },
     fan: {
       name: 'Ventilador de Teto com Iluminação',
@@ -566,7 +566,7 @@
         { id: 'ret_luz', label: 'Retorno Luz',   type: 'ret', x: 0, y: 55 },
         { id: 'n',       label: 'Neutro Comum',  type: 'n',   x: 105, y: 42 }
       ],
-      defaultProps: { watts: 130, fanOn: false, lightOn: false }
+      defaultProps: { watts: 130, voltage: 127, fanOn: false, lightOn: false }
     },
     motor: {
       name: 'Motor Elétrico / Bomba D\'água',
@@ -579,7 +579,97 @@
         { id: 'pe', label: 'Terra', type: 'pe', x: 0, y: 48 },
         { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 68 }
       ],
-      defaultProps: { hp: '1/2 CV', watts: 550, isRunning: false }
+      defaultProps: { hp: '1/2 CV', watts: 550, voltage: 220, isRunning: false }
+    },
+    buzzer: {
+      name: 'Campainha Sonora / Cigarra',
+      shortName: 'CAMPAINHA ELETRÔNICA',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 80, h: 80,
+      terms: [
+        { id: 'ret', label: 'Retorno Pulsador', type: 'ret', x: 0, y: 40 },
+        { id: 'n',   label: 'Neutro',           type: 'n',   x: 80, y: 40 }
+      ],
+      defaultProps: { voltage: 127, isRinging: false }
+    },
+    air_conditioner: {
+      name: 'Ar Condicionado Split Inverter (9k a 18k BTU)',
+      shortName: 'AR CONDICIONADO',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 120, h: 95,
+      terms: [
+        { id: 'f1', label: 'Fase 1', type: 'f1', x: 0, y: 25 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 48 },
+        { id: 'f2', label: 'Fase 2 / Neutro', type: 'f2', x: 0, y: 70 }
+      ],
+      defaultProps: { watts: 1400, voltage: 220, btu: '12000 BTU', isRunning: false }
+    },
+    washing_machine: {
+      name: 'Máquina de Lavar Roupas (Lava e Seca)',
+      shortName: 'MÁQUINA DE LAVAR',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 100, h: 105,
+      terms: [
+        { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 25 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 52 },
+        { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 80 }
+      ],
+      defaultProps: { watts: 1200, voltage: 127, isRunning: false }
+    },
+    refrigerator: {
+      name: 'Geladeira / Refrigerador Frost Free',
+      shortName: 'GELADEIRA DUPLEX',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 95, h: 120,
+      terms: [
+        { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 30 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 60 },
+        { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 90 }
+      ],
+      defaultProps: { watts: 300, voltage: 127, isRunning: false }
+    },
+    freezer: {
+      name: 'Freezer Horizontal / Vertical',
+      shortName: 'FREEZER',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 110, h: 95,
+      terms: [
+        { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 25 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 48 },
+        { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 70 }
+      ],
+      defaultProps: { watts: 400, voltage: 127, isRunning: false }
+    },
+    electric_iron: {
+      name: 'Ferro Elétrico de Passar a Vapor',
+      shortName: 'FERRO DE PASSAR',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 100, h: 85,
+      terms: [
+        { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 22 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 42 },
+        { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 64 }
+      ],
+      defaultProps: { watts: 1500, voltage: 127, isRunning: false }
+    },
+    microwave: {
+      name: 'Forno Micro-ondas Digital',
+      shortName: 'MICRO-ONDAS',
+      category: 'load',
+      categoryLabel: 'Cargas & Aparelhos',
+      w: 110, h: 85,
+      terms: [
+        { id: 'f',  label: 'Fase',  type: 'f1', x: 0, y: 22 },
+        { id: 'pe', label: 'Terra (PE)', type: 'pe', x: 0, y: 42 },
+        { id: 'n',  label: 'Neutro',type: 'n',  x: 0, y: 64 }
+      ],
+      defaultProps: { watts: 1400, voltage: 127, isRunning: false }
     }
   };
 
@@ -592,7 +682,9 @@
     { gauge: 4.0, maxAmps: 28.0, breaker: 25, label: '4,0 mm² (Cargas Médias - máx 28A)' },
     { gauge: 6.0, maxAmps: 36.0, breaker: 32, label: '6,0 mm² (Chuveiro/TUE - máx 36A)' },
     { gauge: 10.0, maxAmps: 50.0, breaker: 50, label: '10,0 mm² (Alimentação Geral - máx 50A)' },
-    { gauge: 16.0, maxAmps: 68.0, breaker: 63, label: '16,0 mm² (Alta Potência - máx 68A)' }
+    { gauge: 16.0, maxAmps: 68.0, breaker: 63, label: '16,0 mm² (Alta Potência / Geral - máx 68A)' },
+    { gauge: 25.0, maxAmps: 89.0, breaker: 80, label: '25,0 mm² (Padrão Entrada - máx 89A)' },
+    { gauge: 35.0, maxAmps: 111.0, breaker: 100, label: '35,0 mm² (Alimentação Pesada - máx 111A)' }
   ];
 
   function getCableDimensioning(current, isLighting = false) {
@@ -618,6 +710,7 @@
     }
 
     analyze(parts, wires, isSimulationActive) {
+      this.currentParts = parts;
       const report = {
         active: isSimulationActive,
         hasShort: false,
@@ -630,6 +723,9 @@
         totalCurrent: 0,
         phaseLoads: { f1: 0, f2: 0, f3: 0 },
         liveWires: new Map(),
+        wireCurrents: new Map(),
+        wireLoadSources: new Map(),
+        partCurrents: new Map(),
         terminalPotentials: new Map(),
         warnings: [],
         compliance: []
@@ -748,7 +844,66 @@
         return report;
       }
 
+      // Avaliação de funcionamento das cargas e injeção de corrente no circuito
       parts.forEach(p => this.evaluateLoad(p, nets, report, wires));
+
+      // 1. RASTREAMENTO E VERIFICAÇÃO DE CORRENTE EM TODOS OS CABOS (ALIMENTAÇÃO GERAL E RAMAIS)
+      wires.forEach(w => {
+        const wireCurrent = report.wireCurrents.get(w.id) || 0;
+        const wireGauge = parseFloat(w.gauge) || 2.5;
+        const gaugeEntry = NBR5410_GAUGES.find(g => g.gauge === wireGauge) || { maxAmps: 21.0 };
+        const maxAmps = gaugeEntry.maxAmps;
+
+        if (wireCurrent > 0) {
+          if (wireCurrent > maxAmps) {
+            report.overloadedWires.add(w.id);
+            const recDim = getCableDimensioning(wireCurrent, false);
+            const loadsDesc = (report.wireLoadSources.get(w.id) || []).join(' + ') || 'Cargas em operação';
+            report.warnings.push(
+              `🚨 SOBREAQUECIMENTO CRÍTICO: Cabo #${w.id} (${w.gauge} mm²) está conduzindo ${wireCurrent.toFixed(1)}A ` +
+              `[Alimentando: ${loadsDesc}], mas sua capacidade máxima (NBR 5410) é de apenas ${maxAmps}A! ` +
+              `Risco gravíssimo de derretimento da isolação e incêndio no quadro ou eletroduto. Bitola mínima obrigatória: ${recDim.gauge} mm²!`
+            );
+          }
+        }
+      });
+
+      // 2. VERIFICAÇÃO DE SOBRECORRENTE NOS DISJUNTORES (In)
+      parts.forEach(p => {
+        if (['breaker1', 'breaker2', 'breaker3'].includes(p.kind)) {
+          const partCurrent = report.partCurrents.get(p.id) || 0;
+          const rating = p.props?.rating;
+          if (rating && partCurrent > rating) {
+            report.warnings.push(
+              `⚠️ DISJUNTOR SOBRECARREGADO: Disjuntor "${p.shortName || p.name}" (#${p.id}) tem In = ${rating}A, ` +
+              `mas está conduzindo ${partCurrent.toFixed(1)}A! Disjuntor irá desarmar por sobrecarga térmica (NBR NM 60898).`
+            );
+          }
+        }
+      });
+
+      // 3. VERIFICAÇÃO DE CAPACIDADE FÍSICA DO QUADRO QDC E RESERVA NBR 5410
+      const dinPoles = parts.filter(p => ['breaker1', 'breaker2', 'breaker3', 'rcd2', 'rcd4', 'spd', 'spd3'].includes(p.kind)).reduce((acc, p) => {
+        const poles = p.kind === 'breaker3' ? 3 : (['breaker2', 'rcd2', 'spd3'].includes(p.kind) ? 2 : (p.kind === 'rcd4' ? 4 : 1));
+        return acc + poles;
+      }, 0);
+      const qdcCap = this.qdcCapacity || 36;
+      if (dinPoles > qdcCap) {
+        report.warnings.push(
+          `🚨 QUADRO SOBRECARREGADO EM ESPAÇO: O quadro QDC (${qdcCap} DIN) tem ${dinPoles} módulos instalados! Faltam ${dinPoles - qdcCap} módulos de espaço físico. Selecione um quadro de maior capacidade no topo.`
+        );
+      } else if (dinPoles > 0) {
+        let minReserve = 2;
+        if (dinPoles > 30) minReserve = Math.ceil(dinPoles * 0.15);
+        else if (dinPoles >= 13) minReserve = 4;
+        else if (dinPoles >= 7) minReserve = 3;
+        const actualReserve = qdcCap - dinPoles;
+        if (actualReserve < minReserve) {
+          report.compliance.push(
+            `Norma NBR 5410 (item 6.5.4.7): Reserva no quadro (${actualReserve} módulos livres) abaixo do mínimo obrigatório (${minReserve} módulos para ampliação futura).`
+          );
+        }
+      }
 
       wires.forEach(w => {
         const kA = `${w.a.pid}:${w.a.idx}`;
@@ -774,6 +929,73 @@
       });
 
       return report;
+    }
+
+    // Rastreia o caminho elétrico completo desde um terminal até a fonte de alimentação correspondente
+    findPathToSource(startNode, targetNet, parts, wires, dockedConns, nets) {
+      if (!nets[targetNet]?.has(startNode)) return [];
+
+      const queue = [{ node: startNode, path: [] }];
+      const visited = new Set([startNode]);
+
+      const sourceNodes = new Set();
+      (parts || []).filter(p => p.kind && (p.kind.startsWith('source') || p.kind === 'pwr_meter')).forEach(s => {
+        s.terms.forEach(t => {
+          if (t.type === targetNet) sourceNodes.add(`${s.id}:${t.idx}`);
+        });
+      });
+
+      const adj = new Map();
+      const addEdge = (u, v, wireId = null, partId = null) => {
+        if (!adj.has(u)) adj.set(u, []);
+        if (!adj.has(v)) adj.set(v, []);
+        adj.get(u).push({ to: v, wireId, partId });
+        adj.get(v).push({ to: u, wireId, partId });
+      };
+
+      wires.forEach(w => {
+        const kA = `${w.a.pid}:${w.a.idx}`;
+        const kB = `${w.b.pid}:${w.b.idx}`;
+        if (nets[targetNet]?.has(kA) && nets[targetNet]?.has(kB)) {
+          addEdge(kA, kB, w.id, null);
+        }
+      });
+
+      (dockedConns || []).forEach(dc => {
+        const kA = `${dc.combId}:${dc.combTermIdx}`;
+        const kB = `${dc.compId}:${dc.compTermIdx}`;
+        if (nets[targetNet]?.has(kA) && nets[targetNet]?.has(kB)) {
+          addEdge(kA, kB, null, null);
+        }
+      });
+
+      (parts || []).forEach(p => {
+        const pairs = this.getInternalConductionPairs(p);
+        pairs.forEach(([idxA, idxB]) => {
+          const kA = `${p.id}:${idxA}`;
+          const kB = `${p.id}:${idxB}`;
+          if (nets[targetNet]?.has(kA) && nets[targetNet]?.has(kB)) {
+            addEdge(kA, kB, null, p.id);
+          }
+        });
+      });
+
+      while (queue.length > 0) {
+        const { node, path } = queue.shift();
+        if (sourceNodes.has(node)) {
+          return path;
+        }
+
+        const neighbors = adj.get(node) || [];
+        for (let edge of neighbors) {
+          if (!visited.has(edge.to)) {
+            visited.add(edge.to);
+            const newPath = edge.wireId ? [...path, { wireId: edge.wireId, partId: edge.partId }] : (edge.partId ? [...path, { wireId: null, partId: edge.partId }] : path);
+            queue.push({ node: edge.to, path: newPath });
+          }
+        }
+      }
+      return [];
     }
 
     // Identifica conexões físicas diretas de encaixe entre dentes do pente e bornes superiores
@@ -887,19 +1109,84 @@
         return nets[netName].has(`${p.id}:${t.idx}`);
       };
 
-      const checkWireDimensioning = (partId, current, isLighting = false) => {
+      // Tensão nominal escolhida pelo usuário para a carga
+      const defaultV = (p.kind === 'shower' || p.kind === 'socket_tue' || p.kind === 'air_conditioner' || p.kind === 'motor') ? 220 : (this.systemVoltage === 127 ? 127 : 220);
+      const nominalVoltage = Number(props.voltage) || defaultV;
+      props.voltage = nominalVoltage;
+
+      const getAppliedVoltage = () => {
+        const activePhases = new Set();
+        let hasN = false;
+        p.terms.forEach(t => {
+          const key = `${p.id}:${t.idx}`;
+          if (nets.f1.has(key)) activePhases.add('f1');
+          if (nets.f2.has(key)) activePhases.add('f2');
+          if (nets.f3.has(key)) activePhases.add('f3');
+          if (nets.n.has(key)) hasN = true;
+        });
+        if (activePhases.size >= 2) {
+          return this.systemVoltage === 127 ? 220 : 380;
+        }
+        if (activePhases.size === 1 && hasN) {
+          return this.systemVoltage === 127 ? 127 : 220;
+        }
+        return 0;
+      };
+
+      const handleLoadPowerAndCurrent = (basePower, label, isLighting = false) => {
+        const appliedV = getAppliedVoltage();
+        if (appliedV <= 0) return;
+
+        if (nominalVoltage === 127 && appliedV >= 220) {
+          report.warnings.push(`🚨 SOBRETENSÃO CRÍTICA: Carga "${p.shortName || p.name}" (#${p.id}) de 127V está recebendo ${appliedV}V! Risco de QUEIMA IMEDIATA / INCÊNDIO!`);
+        } else if (nominalVoltage === 220 && appliedV === 127) {
+          report.warnings.push(`⚠️ SUBTENSÃO: Carga "${p.shortName || p.name}" (#${p.id}) de 220V recebendo 127V. Operação com rendimento e força reduzidos (~33%).`);
+        }
+
+        let effectivePower = basePower;
+        if (nominalVoltage === 220 && appliedV === 127) {
+          effectivePower = Math.round(basePower * (127 / 220) * (127 / 220));
+        } else if (nominalVoltage === 127 && appliedV >= 220) {
+          effectivePower = Math.round(basePower * (appliedV / 127) * (appliedV / 127));
+        }
+
+        const current = effectivePower / appliedV;
+        report.totalPower += effectivePower;
+        report.totalCurrent += current;
         const dim = getCableDimensioning(current, isLighting);
-        wires.forEach(w => {
-          if (w.a.pid === partId || w.b.pid === partId) {
-            const wireGauge = parseFloat(w.gauge) || 2.5;
-            if (wireGauge < dim.gauge) {
-              report.overloadedWires.add(w.id);
-              const maxA = NBR5410_GAUGES.find(g => g.gauge === wireGauge)?.maxAmps || 15.5;
-              report.warnings.push(`🚨 RISCO DE SOBREAQUECIMENTO: Carga "${p.shortName || p.name}" consome ${current.toFixed(1)}A, mas o cabo #${w.id} (${w.gauge} mm²) suporta no máximo ${maxA}A! Bitola mínima NBR 5410: ${dim.gauge} mm² (Disjuntor C${dim.breaker}A).`);
-            }
+        report.loads.push({
+          name: `${label} (${nominalVoltage}V)`,
+          power: effectivePower,
+          current,
+          voltage: appliedV,
+          minGauge: dim.gauge,
+          breaker: dim.breaker
+        });
+
+        // RASTREIA O CAMINHO DA CORRENTE EM CADA CONDUTOR ATÉ O PADRÃO DE ENTRADA
+        p.terms.forEach(t => {
+          const k = `${p.id}:${t.idx}`;
+          let netFound = null;
+          if (nets.f1.has(k)) netFound = 'f1';
+          else if (nets.f2.has(k)) netFound = 'f2';
+          else if (nets.f3.has(k)) netFound = 'f3';
+          else if (nets.n.has(k)) netFound = 'n';
+          if (netFound) {
+            const path = this.findPathToSource(k, netFound, this.currentParts, wires, report.dockedConnections, nets);
+            path.forEach(item => {
+              if (item.wireId) {
+                const prev = report.wireCurrents.get(item.wireId) || 0;
+                report.wireCurrents.set(item.wireId, prev + current);
+                if (!report.wireLoadSources.has(item.wireId)) report.wireLoadSources.set(item.wireId, []);
+                report.wireLoadSources.get(item.wireId).push(`${p.shortName || p.name} (${current.toFixed(1)}A)`);
+              }
+              if (item.partId) {
+                const prev = report.partCurrents.get(item.partId) || 0;
+                report.partCurrents.set(item.partId, prev + current);
+              }
+            });
           }
         });
-        return dim;
       };
 
       if (p.kind === 'lamp_led') {
@@ -908,12 +1195,7 @@
         const isPowered = retLive && hasN;
         props.isLit = isPowered;
         if (isPowered) {
-          const power = props.watts || 15;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalPower += power;
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, true);
-          report.loads.push({ name: `Lâmpada LED (${p.id})`, power, current, voltage: this.systemVoltage === 127 ? 127 : 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(props.watts || 15, `Lâmpada LED (${p.id})`, true);
         }
       } else if (p.kind === 'socket_tug') {
         const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
@@ -925,12 +1207,7 @@
           report.warnings.push(`⚠️ Tomada TUG (${p.id}) ligada sem condutor de proteção (Terra PE).`);
         }
         if (isPowered) {
-          const power = props.watts || 100;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalPower += power;
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, false);
-          report.loads.push({ name: `Tomada TUG 10A (${p.id})`, power, current, voltage: this.systemVoltage === 127 ? 127 : 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(props.watts || 100, `Tomada TUG 10A (${p.id})`, false);
         }
       } else if (p.kind === 'socket_tue') {
         const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2') || hasTerm('f1', 'f3');
@@ -942,12 +1219,7 @@
           report.warnings.push(`⚠️ Tomada TUE 20A (${p.id}) ligada sem condutor de proteção (Terra PE).`);
         }
         if (isPowered) {
-          const power = props.watts || 1500;
-          const current = power / 220;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, false);
-          report.loads.push({ name: `Tomada TUE 20A (${p.id})`, power, current, voltage: 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(props.watts || 1500, `Tomada TUE 20A (${p.id})`, false);
         }
       } else if (p.kind === 'shower') {
         const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2') || hasTerm('f1', 'f3');
@@ -956,15 +1228,11 @@
         const isPowered = hasF1 && hasF2;
         props.isRunning = isPowered && props.mode !== 'desligado';
         if (isPowered && !hasPE) {
-          report.warnings.push(`🚨 CRÍTICO: Chuveiro ligado SEM condutor de aterramento (PE)!`);
+          report.warnings.push(`🚨 CRÍTICO: Chuveiro ligado SEM condutor de aterramento (PE)! Risco gravíssimo de choque letal.`);
         }
         if (props.isRunning) {
           const power = props.mode === 'inverno' ? (props.watts || 6800) : Math.round((props.watts || 6800) * 0.47);
-          const current = power / 220;
-          report.totalPower += power;
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, false);
-          report.loads.push({ name: `Chuveiro Elétrico (${props.mode})`, power, current, voltage: 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(power, `Chuveiro Elétrico (${props.mode})`, false);
         }
       } else if (p.kind === 'fan') {
         const motLive = hasTerm('ret_mot', 'f1') || hasTerm('ret_mot', 'f2') || hasTerm('ret_mot', 'f3');
@@ -976,11 +1244,7 @@
         if (props.fanOn) power += 80;
         if (props.lightOn) power += 50;
         if (power > 0) {
-          report.totalPower += power;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, true);
-          report.loads.push({ name: 'Ventilador de Teto', power, current, voltage: this.systemVoltage === 127 ? 127 : 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(power, 'Ventilador de Teto', true);
         }
       } else if (p.kind === 'motor') {
         const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
@@ -992,12 +1256,79 @@
           report.warnings.push(`⚠️ Motor elétrico (${p.id}) ligado sem aterramento de proteção (PE).`);
         }
         if (isPowered) {
-          const power = props.watts || 550;
-          const current = power / (this.systemVoltage === 127 ? 127 : 220);
-          report.totalPower += power;
-          report.totalCurrent += current;
-          const dim = checkWireDimensioning(p.id, current, false);
-          report.loads.push({ name: `Motor / Bomba D'água (${props.hp || '1/2 CV'})`, power, current, voltage: this.systemVoltage === 127 ? 127 : 220, minGauge: dim.gauge, breaker: dim.breaker });
+          handleLoadPowerAndCurrent(props.watts || 550, `Motor / Bomba D'água (${props.hp || '1/2 CV'})`, false);
+        }
+      } else if (p.kind === 'air_conditioner') {
+        const hasF1 = hasTerm('f1', 'f1') || hasTerm('f1', 'f2') || hasTerm('f1', 'f3');
+        const hasF2 = hasTerm('f2', 'f1') || hasTerm('f2', 'f2') || hasTerm('f2', 'f3') || hasTerm('f2', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF1 && hasF2;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Ar Condicionado (${p.id}) ligado sem aterramento de proteção (PE).`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 1400, `Ar Condicionado (${props.btu || '12000 BTU'})`, false);
+        }
+      } else if (p.kind === 'washing_machine') {
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
+        const hasN = hasTerm('n', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF && hasN;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Máquina de Lavar (${p.id}) ligada sem aterramento (PE). Risco de fuga de corrente na carcaça.`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 1200, `Máquina de Lavar Roupas`, false);
+        }
+      } else if (p.kind === 'refrigerator') {
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
+        const hasN = hasTerm('n', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF && hasN;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Geladeira Duplex (${p.id}) ligada sem condutor Terra (PE).`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 300, `Geladeira Duplex Frost Free`, false);
+        }
+      } else if (p.kind === 'freezer') {
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
+        const hasN = hasTerm('n', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF && hasN;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Freezer (${p.id}) ligado sem condutor Terra (PE).`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 400, `Freezer`, false);
+        }
+      } else if (p.kind === 'electric_iron') {
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
+        const hasN = hasTerm('n', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF && hasN;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Ferro de Passar (${p.id}) sem condutor Terra de proteção (PE).`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 1500, `Ferro de Passar a Vapor`, false);
+        }
+      } else if (p.kind === 'microwave') {
+        const hasF = hasTerm('f', 'f1') || hasTerm('f', 'f2') || hasTerm('f', 'f3');
+        const hasN = hasTerm('n', 'n');
+        const hasPE = hasTerm('pe', 'pe');
+        const isPowered = hasF && hasN;
+        props.isRunning = isPowered;
+        if (isPowered && !hasPE) {
+          report.warnings.push(`⚠️ Forno Micro-ondas (${p.id}) sem condutor Terra (PE).`);
+        }
+        if (isPowered) {
+          handleLoadPowerAndCurrent(props.watts || 1400, `Forno Micro-ondas`, false);
         }
       }
     }
@@ -1625,10 +1956,37 @@
 
     renderEnclosure() {
       if (!this.enclosureLayer) return;
+      this.enclosureLayer.innerHTML = '';
       const g = this.el('g', { id: 'cad-qdc-enclosure', class: 'enclosure-group' });
 
-      // 1. Chapa Traseira do Quadro Metálico QDC (Cinza Industrial Acetinado com cantos arredondados)
-      const qx = 60, qy = 40, qw = 860, qh = 820, rx = 36;
+      const cap = this.qdcCapacity || 36;
+      let qx = 60, qy = 40, qw = 860, qh = 820, rx = 36;
+      let dinRails = [
+        { y: 155, label: 'Trilho 1 (Entrada / DPS / Disjuntor Geral / IDR)' },
+        { y: 365, label: 'Trilho 2 (Circuitos Terminais)' },
+        { y: 575, label: 'Trilho 3 (Cargas Especiais / Chuveiro / TUE)' }
+      ];
+
+      if (cap === 12) {
+        qw = 620; qh = 420;
+        dinRails = [
+          { y: 210, label: 'Trilho Único 12 DIN (Entrada e Circuitos)' }
+        ];
+      } else if (cap === 24) {
+        qw = 740; qh = 600;
+        dinRails = [
+          { y: 190, label: 'Trilho 1 (Alimentação / Proteção Geral)' },
+          { y: 390, label: 'Trilho 2 (Circuitos Terminais)' }
+        ];
+      } else if (cap === 48) {
+        qw = 980; qh = 980;
+        dinRails = [
+          { y: 140, label: 'Trilho 1 (Alimentação Principal / DPS / Medição)' },
+          { y: 340, label: 'Trilho 2 (Disjuntores Terminais A)' },
+          { y: 540, label: 'Trilho 3 (Disjuntores Terminais B)' },
+          { y: 740, label: 'Trilho 4 (Cargas Pesadas / TUE / Climatização)' }
+        ];
+      }
 
       // Sombra e Rebaixo Exterior
       g.appendChild(this.el('rect', {
@@ -1636,7 +1994,7 @@
         fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 2, opacity: '0.9', filter: 'url(#cad-shadow)'
       }));
 
-      // Base do Quadro (Chapa de Fundo com tom da foto #c5c9d0)
+      // Base do Quadro (Chapa de Fundo Cinza Industrial)
       g.appendChild(this.el('rect', {
         x: qx, y: qy, width: qw, height: qh, rx: rx,
         fill: '#c6cad0', stroke: '#475569', 'stroke-width': 10
@@ -1648,7 +2006,14 @@
         fill: 'none', stroke: '#ffffff', 'stroke-width': 2, opacity: '0.45'
       }));
 
-      // 4 Parafusos Estruturais Robustos dos Cantos com Arruela Rebaixada (Padrão da Foto)
+      // Rótulo Gravado no Topo do Quadro
+      g.appendChild(this.el('text', {
+        x: qx + qw / 2, y: qy + 28, 'text-anchor': 'middle',
+        fill: '#334155', 'font-size': '11px', 'font-weight': 'bold', 'font-family': 'monospace',
+        'letter-spacing': '1.5px'
+      }, `⚡ QUADRO DE DISTRIBUIÇÃO QDC — ${cap} MÓDULOS DIN — NBR 5410`));
+
+      // 4 Parafusos Estruturais Robustos dos Cantos
       const cornerScrews = [
         { cx: qx + 42, cy: qy + 42 },
         { cx: qx + qw - 42, cy: qy + 42 },
@@ -1657,22 +2022,18 @@
       ];
 
       cornerScrews.forEach(sc => {
-        // Cavidade rebaixada (counterbore)
         g.appendChild(this.el('circle', {
           cx: sc.cx, cy: sc.cy, r: 16,
           fill: '#475569', stroke: '#1e293b', 'stroke-width': 2
         }));
-        // Anel de arruela
         g.appendChild(this.el('circle', {
           cx: sc.cx, cy: sc.cy, r: 12,
           fill: '#64748b', stroke: '#334155', 'stroke-width': 1
         }));
-        // Cabeça do parafuso em aço escovado
         g.appendChild(this.el('circle', {
           cx: sc.cx, cy: sc.cy, r: 8.5,
           fill: 'url(#screw-steel)', stroke: '#1e293b', 'stroke-width': 1
         }));
-        // Fenda Phillips profunda
         g.appendChild(this.el('line', {
           x1: sc.cx - 5.5, y1: sc.cy, x2: sc.cx + 5.5, y2: sc.cy,
           stroke: '#0f172a', 'stroke-width': 2.2
@@ -1683,13 +2044,7 @@
         }));
       });
 
-      // 2. Três Trilhos DIN 35mm Perfurados em Aço Zincado (Idênticos aos da foto)
-      const dinRails = [
-        { y: 155, label: 'Trilho Superior (Entrada / DPS / DR Geral)' },
-        { y: 365, label: 'Trilho Intermediário (Circuitos Terminais)' },
-        { y: 575, label: 'Trilho Inferior (Cargas Especiais / DRs)' }
-      ];
-
+      // Trilhos DIN 35mm Perfurados em Aço Zincado
       const railX = qx + 35;
       const railW = qw - 70;
       const railH = 38;
@@ -1704,7 +2059,7 @@
           filter: 'drop-shadow(0 3px 4px rgba(0,0,0,0.35))'
         }));
 
-        // Borda superior em relevo (reflexo cromado)
+        // Borda superior em relevo
         g.appendChild(this.el('line', {
           x1: railX + 2, y1: ry + 3, x2: railX + railW - 2, y2: ry + 3,
           stroke: '#ffffff', 'stroke-width': 1.2, opacity: '0.8'
@@ -1722,7 +2077,7 @@
           stroke: '#334155', 'stroke-width': 1.5, opacity: '0.9'
         }));
 
-        // Furos / Oblongos ovais perfurados de fixação a cada 38px
+        // Furos oblongos perfurados de fixação
         for (let hx = railX + 26; hx < railX + railW - 26; hx += 38) {
           g.appendChild(this.el('rect', {
             x: hx - 8, y: ry + 15, width: 16, height: 8, rx: 4,
@@ -1730,8 +2085,7 @@
           }));
         }
 
-        // Presilhas / Batentes finais pretos (Postes de ancoragem DIN) nas pontas esquerda e direita
-        // Esquerda
+        // Presilhas / Batentes finais pretos
         g.appendChild(this.el('path', {
           d: `M ${railX - 10} ${ry - 12} L ${railX + 16} ${ry - 12} L ${railX + 16} ${ry + railH + 12} L ${railX - 10} ${ry + railH + 12} Z`,
           fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 1.5, rx: 2
@@ -1741,7 +2095,6 @@
           fill: '#475569', stroke: '#0f172a', 'stroke-width': 1
         }));
 
-        // Direita
         g.appendChild(this.el('path', {
           d: `M ${railX + railW - 16} ${ry - 12} L ${railX + railW + 10} ${ry - 12} L ${railX + railW + 10} ${ry + railH + 12} L ${railX + railW - 16} ${ry + railH + 12} Z`,
           fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 1.5, rx: 2
@@ -1794,7 +2147,7 @@
         const isOverloaded = simulationReport?.overloadedWires?.has(w.id);
 
         const colorMeta = WIRE_COLORS[w.color] || WIRE_COLORS.ret;
-        const baseWidth = { '1.5': 4, '2.5': 5, '4.0': 6, '6.0': 7, '10.0': 9 }[w.gauge] || 5;
+        const baseWidth = { '1.5': 4, '2.5': 5, '4.0': 6, '6.0': 7, '10.0': 9, '16.0': 11, '25.0': 13, '35.0': 15 }[w.gauge] || 5;
 
         const wireElem = this.el('path', {
           d: pathData,
@@ -1806,12 +2159,24 @@
           fill: 'none'
         });
 
+        // Área transparente ampla de clique para facilitar seleção de qualquer segmento
+        const hitPath = this.el('path', {
+          d: pathData,
+          fill: 'none',
+          stroke: 'transparent',
+          'stroke-width': Math.max(baseWidth + 14, 20),
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+          style: 'cursor: pointer; pointer-events: stroke;'
+        });
+
         if (this.drawingWire) {
           wireElem.style.cursor = 'crosshair';
           wireElem.setAttribute('title', '⚡ Clique para fazer Interseção / Emenda neste cabo');
+          hitPath.style.cursor = 'crosshair';
         }
 
-        wireElem.addEventListener('pointerdown', e => {
+        const handleWireSelect = e => {
           if (e.button !== 0) return;
           e.stopPropagation();
 
@@ -1824,9 +2189,13 @@
           this.selected = { type: 'wire', id: w.id };
           this.render();
           this.onSelectionChange(w);
-        });
+        };
+
+        wireElem.addEventListener('pointerdown', handleWireSelect);
+        hitPath.addEventListener('pointerdown', handleWireSelect);
 
         this.wiresLayer.appendChild(wireElem);
+        this.wiresLayer.appendChild(hitPath);
 
         if (simulationReport?.active && !simulationReport.hasShort) {
           const wireStatus = simulationReport.liveWires?.get(w.id);
@@ -2071,6 +2440,30 @@
       // 11. MOTOR ELÉTRICO / BOMBA
       else if (p.kind === 'motor') {
         this.renderIndustrialMotor(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 12. AR CONDICIONADO SPLIT
+      else if (p.kind === 'air_conditioner') {
+        this.renderAirConditioner(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 13. MÁQUINA DE LAVAR ROUPAS
+      else if (p.kind === 'washing_machine') {
+        this.renderWashingMachine(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 14. GELADEIRA DUPLEX FROST FREE
+      else if (p.kind === 'refrigerator') {
+        this.renderRefrigerator(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 15. FREEZER
+      else if (p.kind === 'freezer') {
+        this.renderFreezer(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 16. FERRO DE PASSAR
+      else if (p.kind === 'electric_iron') {
+        this.renderElectricIron(p, g, w, h, isSelected, props, simulationReport);
+      }
+      // 17. MICRO-ONDAS
+      else if (p.kind === 'microwave') {
+        this.renderMicrowave(p, g, w, h, isSelected, props, simulationReport);
       }
     }
 
@@ -2783,11 +3176,12 @@
         filter: isPowered ? 'url(#cad-shadow)' : 'none'
       }));
 
-      // Inscrição 10A ou 20A
+      // Inscrição 10A ou 20A com indicação de voltagem
+      const socketV = props.voltage || (p.kind === 'socket_tue' ? 220 : 127);
       g.appendChild(this.el('text', {
         x: cx, y: h - 7, 'text-anchor': 'middle',
-        fill: '#64748b', 'font-size': '7px', 'font-weight': 'bold'
-      }, p.kind === 'socket_tue' ? '20A 250V~' : '10A 250V~'));
+        fill: '#64748b', 'font-size': '6.8px', 'font-weight': 'bold'
+      }, `${p.kind === 'socket_tue' ? '20A' : '10A'} — ${socketV}V`));
     }
 
     // --- LUMINÁRIA PLAFON LED DE TETO ---
@@ -2822,10 +3216,12 @@
         g.appendChild(this.el('circle', { cx, cy, r: 10, fill: '#ffffff', opacity: 0.9 }));
       }
 
+      const lampV = props.voltage || 127;
+      const lampW = props.watts || 15;
       g.appendChild(this.el('text', {
         x: cx, y: h - 2, 'text-anchor': 'middle',
-        fill: isLit ? '#fef08a' : '#94a3b8', 'font-size': '7.5px', 'font-weight': 'bold'
-      }, isLit ? '💡 ACESA (15W)' : 'LÂMPADA LED'));
+        fill: isLit ? '#fef08a' : '#64748b', 'font-size': '7.2px', 'font-weight': 'bold'
+      }, isLit ? `💡 ACESA (${lampW}W • ${lampV}V)` : `LÂMPADA LED (${lampV}V)`));
     }
 
     // --- CHUVEIRO ELÉTRICO BRASILEIRO REALISTA ---
@@ -2851,6 +3247,14 @@
         fill: 'url(#shower-body)', stroke: isSelected ? '#38bdf8' : '#94a3b8',
         'stroke-width': 1.5, filter: 'url(#cad-shadow)'
       }));
+
+      // Serigrafia de Voltagem e Potência no corpo cilíndrico
+      const showerV = props.voltage || 220;
+      const showerW = props.watts || 5500;
+      g.appendChild(this.el('text', {
+        x: cx, y: cy + 4, 'text-anchor': 'middle',
+        fill: '#1e293b', 'font-size': '6.8px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, `${showerV}V~ ${showerW}W`));
 
       // Seletor de temperatura giratório no topo
       const selColor = props.mode === 'inverno' ? '#ef4444' : (props.mode === 'verao' ? '#f59e0b' : '#64748b');
@@ -2936,6 +3340,13 @@
         filter: isLightOn ? 'url(#lamp-halo)' : 'none'
       });
       g.appendChild(globe);
+
+      // Rótulo com voltagem
+      const fanV = props.voltage || 127;
+      g.appendChild(this.el('text', {
+        x: cx, y: h - 2, 'text-anchor': 'middle',
+        fill: '#64748b', 'font-size': '6.8px', 'font-weight': 'bold'
+      }, `VENTILADOR (${fanV}V)`));
     }
 
     // --- MOTOR ELÉTRICO / BOMBA D'ÁGUA ---
@@ -2981,6 +3392,308 @@
       shaft.appendChild(this.el('circle', { cx: 0, cy: 0, r: 10, fill: '#cbd5e1', stroke: '#334155' }));
       shaft.appendChild(this.el('rect', { x: -2, y: -8, width: 4, height: 16, fill: '#0f172a' }));
       g.appendChild(shaft);
+
+      // Rótulo com voltagem
+      const motV = props.voltage || 220;
+      const motW = props.watts || 750;
+      g.appendChild(this.el('text', {
+        x: cx, y: h - 3, 'text-anchor': 'middle',
+        fill: '#1e293b', 'font-size': '6.5px', 'font-weight': 'bold'
+      }, `MOTOR ${motV}V~ (${motW}W)`));
+    }
+
+    // --- AR CONDICIONADO SPLIT INVERTER ---
+    renderAirConditioner(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2;
+
+      // Corpo da Evaporadora Split (Gabinete aerodinâmico branco)
+      g.appendChild(this.el('rect', {
+        x: 4, y: 8, width: w - 8, height: h - 22, rx: 8,
+        fill: '#f8fafc', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+      }));
+
+      // Friso decorativo inferior
+      g.appendChild(this.el('rect', {
+        x: 8, y: h - 24, width: w - 16, height: 6, rx: 2,
+        fill: '#e2e8f0', stroke: '#cbd5e1', 'stroke-width': 0.8
+      }));
+
+      // Display digital de temperatura LED
+      g.appendChild(this.el('rect', {
+        x: w - 38, y: 16, width: 26, height: 14, rx: 3,
+        fill: '#0f172a', stroke: '#334155', 'stroke-width': 0.8
+      }));
+      g.appendChild(this.el('text', {
+        x: w - 25, y: 26.5, 'text-anchor': 'middle',
+        fill: isRunning ? '#38bdf8' : '#64748b', 'font-size': '8.5px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, isRunning ? '21°C' : '--°C'));
+
+      // Aleta inferior móvel (defletor de ar)
+      g.appendChild(this.el('rect', {
+        x: 12, y: h - 18, width: w - 24, height: 4, rx: 1.5,
+        fill: isRunning ? '#38bdf8' : '#94a3b8'
+      }));
+
+      // Efeito de brisa fria saindo se ligado
+      if (isRunning) {
+        for (let i = 20; i <= w - 20; i += 16) {
+          g.appendChild(this.el('line', {
+            x1: i, y1: h - 12, x2: i - 4, y2: h + 8,
+            stroke: '#38bdf8', 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-dasharray': '3 2'
+          }));
+        }
+      }
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx - 12, y: 26, 'text-anchor': 'middle',
+        fill: '#475569', 'font-size': '7px', 'font-weight': 'bold'
+      }, `AR SPLIT ${props.voltage || 220}V~ (${props.watts || 1400}W)`));
+    }
+
+    // --- MÁQUINA DE LAVAR ROUPAS (LAVA E SECA) ---
+    renderWashingMachine(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2, cy = h / 2 + 6;
+
+      // Gabinete metálico da lavadora
+      g.appendChild(this.el('rect', {
+        x: 4, y: 4, width: w - 8, height: h - 8, rx: 8,
+        fill: '#f1f5f9', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+      }));
+
+      // Painel superior com visor e botões
+      g.appendChild(this.el('rect', {
+        x: 8, y: 8, width: w - 16, height: 16, rx: 3,
+        fill: '#0f172a', stroke: '#334155', 'stroke-width': 0.8
+      }));
+      g.appendChild(this.el('circle', { cx: 20, cy: 16, r: 4, fill: '#64748b', stroke: '#94a3b8', 'stroke-width': 0.8 }));
+      g.appendChild(this.el('text', {
+        x: w - 22, y: 20, 'text-anchor': 'middle',
+        fill: isRunning ? '#4ade80' : '#64748b', 'font-size': '7px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, isRunning ? 'LAVANDO' : 'PAUSA'));
+
+      // Escotilha redonda frontal de vidro fumê
+      g.appendChild(this.el('circle', {
+        cx, cy, r: 28,
+        fill: '#1e293b', stroke: isSelected ? '#38bdf8' : '#cbd5e1', 'stroke-width': 2.5
+      }));
+      g.appendChild(this.el('circle', {
+        cx, cy, r: 22,
+        fill: isRunning ? 'url(#motor-blue)' : '#0f172a', opacity: 0.8
+      }));
+
+      // Tambor giratório se em funcionamento
+      const drum = this.el('g', {
+        class: isRunning ? 'cad-spin-fast' : '',
+        transform: `translate(${cx}, ${cy})`
+      });
+      drum.appendChild(this.el('circle', { cx: 0, cy: 0, r: 14, fill: 'none', stroke: '#94a3b8', 'stroke-width': 1.5, 'stroke-dasharray': '6 4' }));
+      g.appendChild(drum);
+
+      // Puxador da escotilha
+      g.appendChild(this.el('rect', {
+        x: cx + 24, y: cy - 6, width: 4, height: 12, rx: 1.5, fill: '#cbd5e1'
+      }));
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx, y: h - 6, 'text-anchor': 'middle',
+        fill: '#475569', 'font-size': '6.8px', 'font-weight': 'bold'
+      }, `LAVA & SECA ${props.voltage || 127}V~ (${props.watts || 1200}W)`));
+    }
+
+    // --- GELADEIRA / REFRIGERADOR DUPLEX FROST FREE ---
+    renderRefrigerator(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2;
+
+      // Gabinete vertical em tom de inox escovado
+      g.appendChild(this.el('rect', {
+        x: 4, y: 4, width: w - 8, height: h - 8, rx: 6,
+        fill: '#e2e8f0', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+      }));
+
+      // Divisão horizontal entre Freezer (topo) e Refrigerador (baixo)
+      g.appendChild(this.el('line', {
+        x1: 4, y1: 42, x2: w - 4, y2: 42,
+        stroke: '#475569', 'stroke-width': 2
+      }));
+
+      // Puxadores verticais em alumínio
+      g.appendChild(this.el('rect', { x: 10, y: 14, width: 4, height: 20, rx: 1.5, fill: '#64748b' }));
+      g.appendChild(this.el('rect', { x: 10, y: 50, width: 4, height: 44, rx: 1.5, fill: '#64748b' }));
+
+      // Display touch digital na porta do refrigerador
+      g.appendChild(this.el('rect', {
+        x: cx - 14, y: 56, width: 28, height: 18, rx: 3,
+        fill: '#0f172a', stroke: '#334155', 'stroke-width': 0.8
+      }));
+      g.appendChild(this.el('text', {
+        x: cx, y: 65, 'text-anchor': 'middle',
+        fill: isRunning ? '#38bdf8' : '#64748b', 'font-size': '6.5px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, isRunning ? '-18°C' : '--'));
+      g.appendChild(this.el('text', {
+        x: cx, y: 72, 'text-anchor': 'middle',
+        fill: isRunning ? '#4ade80' : '#475569', 'font-size': '5.5px', 'font-weight': 'bold'
+      }, isRunning ? '⚡ FROST' : 'ECO'));
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx, y: h - 6, 'text-anchor': 'middle',
+        fill: '#334155', 'font-size': '6.8px', 'font-weight': 'bold'
+      }, `GELADEIRA ${props.voltage || 127}V~ (${props.watts || 300}W)`));
+    }
+
+    // --- FREEZER HORIZONTAL / VERTICAL ---
+    renderFreezer(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2;
+
+      // Gabinete do Freezer
+      g.appendChild(this.el('rect', {
+        x: 4, y: 6, width: w - 8, height: h - 12, rx: 6,
+        fill: '#f1f5f9', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+      }));
+
+      // Tampa superior com rebaixo
+      g.appendChild(this.el('rect', {
+        x: 6, y: 8, width: w - 12, height: 18, rx: 3,
+        fill: '#e2e8f0', stroke: '#cbd5e1', 'stroke-width': 1
+      }));
+      // Puxador central
+      g.appendChild(this.el('rect', {
+        x: cx - 18, y: 22, width: 36, height: 6, rx: 2, fill: '#475569'
+      }));
+
+      // Grelha lateral de ventilação do compressor
+      for (let y = 46; y <= 72; y += 5) {
+        g.appendChild(this.el('line', {
+          x1: w - 24, y1: y, x2: w - 10, y2: y,
+          stroke: '#94a3b8', 'stroke-width': 1.5, 'stroke-linecap': 'round'
+        }));
+      }
+
+      // Painel frontal com termostato
+      g.appendChild(this.el('circle', {
+        cx: 24, cy: 56, r: 8,
+        fill: isRunning ? '#10b981' : '#64748b', stroke: '#0f172a', 'stroke-width': 1
+      }));
+      g.appendChild(this.el('text', {
+        x: 24, y: 58.5, 'text-anchor': 'middle',
+        fill: '#ffffff', 'font-size': '5px', 'font-weight': 'bold'
+      }, '-20°'));
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx - 6, y: h - 8, 'text-anchor': 'middle',
+        fill: '#334155', 'font-size': '6.8px', 'font-weight': 'bold'
+      }, `FREEZER ${props.voltage || 127}V~ (${props.watts || 400}W)`));
+    }
+
+    // --- FERRO ELÉTRICO DE PASSAR A VAPOR ---
+    renderElectricIron(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2;
+
+      // Base metálica cromada (sapata afunilada)
+      g.appendChild(this.el('path', {
+        d: `M 10,${h - 14} L ${w - 18},${h - 14} L ${w - 6},${h - 22} L 18,${h - 22} Z`,
+        fill: 'url(#chrome-grad)', stroke: '#475569', 'stroke-width': 1
+      }));
+
+      // Corpo plástico aerodinâmico
+      g.appendChild(this.el('path', {
+        d: `M 18,${h - 22} L ${w - 10},${h - 22} Q ${w - 16},${h - 40} ${cx + 10},${h - 46} L 22,${h - 46} Z`,
+        fill: isRunning ? '#ef4444' : '#0284c7', stroke: isSelected ? '#38bdf8' : '#0369a1',
+        'stroke-width': 1.5, filter: 'url(#cad-shadow)'
+      }));
+
+      // Alça ergonômica com abertura
+      g.appendChild(this.el('path', {
+        d: `M 22,${h - 46} Q ${cx - 5},${12} ${w - 24},${16} Q ${w - 20},${28} ${cx + 10},${h - 46}`,
+        fill: '#1e293b', stroke: '#0f172a', 'stroke-width': 1.5
+      }));
+
+      // Botão de vapor no topo da alça
+      g.appendChild(this.el('rect', {
+        x: w - 30, y: 12, width: 8, height: 6, rx: 1.5, fill: '#38bdf8'
+      }));
+
+      // Seletor circular de temperatura na base
+      g.appendChild(this.el('circle', {
+        cx: cx - 6, cy: h - 34, r: 7,
+        fill: '#0f172a', stroke: '#cbd5e1', 'stroke-width': 1
+      }));
+      // LED piloto vermelho de aquecimento
+      g.appendChild(this.el('circle', {
+        cx: cx + 14, cy: h - 34, r: 2.5,
+        fill: isRunning ? '#ef4444' : '#64748b', filter: isRunning ? 'url(#cad-shadow)' : 'none'
+      }));
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx, y: h - 4, 'text-anchor': 'middle',
+        fill: '#334155', 'font-size': '6.5px', 'font-weight': 'bold'
+      }, `FERRO VAPOR ${props.voltage || 127}V~ (${props.watts || 1500}W)`));
+    }
+
+    // --- FORNO MICRO-ONDAS DIGITAL ---
+    renderMicrowave(p, g, w, h, isSelected, props, simulationReport) {
+      const isRunning = props.isRunning && simulationReport?.active;
+      const cx = w / 2;
+
+      // Gabinete retangular em aço inox
+      g.appendChild(this.el('rect', {
+        x: 4, y: 6, width: w - 8, height: h - 12, rx: 6,
+        fill: '#e2e8f0', stroke: isSelected ? '#38bdf8' : '#94a3b8',
+        'stroke-width': isSelected ? 2 : 1.2, filter: 'url(#cad-shadow)'
+      }));
+
+      // Porta com visor de vidro fumê (acende amarelo se em operação)
+      g.appendChild(this.el('rect', {
+        x: 8, y: 10, width: w - 38, height: h - 20, rx: 4,
+        fill: isRunning ? '#fef08a' : '#0f172a', stroke: '#334155', 'stroke-width': 1.2,
+        opacity: isRunning ? 0.95 : 0.9
+      }));
+
+      // Prato giratório visível através do vidro
+      g.appendChild(this.el('ellipse', {
+        cx: 8 + (w - 38) / 2, cy: h - 18, rx: 20, ry: 4,
+        fill: isRunning ? '#fef9c3' : '#334155', stroke: '#94a3b8', 'stroke-width': 0.8
+      }));
+
+      // Puxador da porta
+      g.appendChild(this.el('rect', {
+        x: w - 36, y: 16, width: 3, height: h - 32, rx: 1.5, fill: '#475569'
+      }));
+
+      // Painel digital à direita
+      g.appendChild(this.el('rect', {
+        x: w - 28, y: 10, width: 22, height: h - 20, rx: 3,
+        fill: '#0f172a', stroke: '#334155', 'stroke-width': 0.8
+      }));
+      // Display verde fluorescente
+      g.appendChild(this.el('text', {
+        x: w - 17, y: 22, 'text-anchor': 'middle',
+        fill: isRunning ? '#4ade80' : '#15803d', 'font-size': '7px', 'font-weight': 'bold', 'font-family': 'monospace'
+      }, isRunning ? '01:30' : '12:00'));
+
+      // Botões numéricos em matriz
+      for (let by = 28; by <= h - 22; by += 6) {
+        g.appendChild(this.el('rect', { x: w - 25, y: by, width: 16, height: 3.5, rx: 1, fill: '#334155' }));
+      }
+
+      // Serigrafia técnica
+      g.appendChild(this.el('text', {
+        x: cx - 12, y: h - 4, 'text-anchor': 'middle',
+        fill: '#334155', 'font-size': '6.5px', 'font-weight': 'bold'
+      }, `MICRO-ONDAS ${props.voltage || 127}V~ (${props.watts || 1400}W)`));
     }
 
     renderProbes() {
@@ -3722,6 +4435,13 @@
         this.cad.render();
       });
 
+      document.getElementById('select-qdc-size')?.addEventListener('change', e => {
+        this.cad.qdcCapacity = Number(e.target.value);
+        this.cad.enclosureRendered = false;
+        this.cad.render();
+        this.runSimulation();
+      });
+
       document.getElementById('btn-save-project')?.addEventListener('click', () => this.exporter.saveProjectToFile());
       const fileInput = document.getElementById('file-project-input');
       document.getElementById('btn-open-project')?.addEventListener('click', () => fileInput?.click());
@@ -4039,16 +4759,40 @@
           `;
         }
 
-        const isLoad = ['lamp_led', 'shower', 'fan', 'motor', 'socket_tug', 'socket_tue'].includes(p.kind);
+        const isLoad = ['lamp_led', 'shower', 'fan', 'motor', 'socket_tug', 'socket_tue', 'buzzer', 'air_conditioner', 'washing_machine', 'refrigerator', 'freezer', 'electric_iron', 'microwave'].includes(p.kind);
         if (isLoad) {
-          const currentWatts = p.props.watts || (p.kind === 'shower' ? 5500 : (p.kind === 'lamp_led' ? 15 : (p.kind === 'motor' ? 750 : (p.kind === 'fan' ? 120 : (p.kind === 'socket_tue' ? 2200 : 200)))));
+          const defaultV = (p.kind === 'shower' || p.kind === 'socket_tue' || p.kind === 'air_conditioner') ? 220 : (this.sim.systemVoltage === 127 ? 127 : 220);
+          const currentVoltage = Number(p.props.voltage) || defaultV;
+          p.props.voltage = currentVoltage;
+
+          let defaultWatts = 200;
+          if (p.kind === 'shower') defaultWatts = 5500;
+          else if (p.kind === 'air_conditioner') defaultWatts = 1600;
+          else if (p.kind === 'washing_machine') defaultWatts = 1000;
+          else if (p.kind === 'refrigerator') defaultWatts = 300;
+          else if (p.kind === 'freezer') defaultWatts = 450;
+          else if (p.kind === 'electric_iron') defaultWatts = 1500;
+          else if (p.kind === 'microwave') defaultWatts = 1200;
+          else if (p.kind === 'socket_tue') defaultWatts = 2200;
+          else if (p.kind === 'motor') defaultWatts = 750;
+          else if (p.kind === 'fan') defaultWatts = 120;
+          else if (p.kind === 'lamp_led') defaultWatts = 15;
+
+          const currentWatts = p.props.watts || defaultWatts;
           p.props.watts = currentWatts;
-          const v = this.sim.systemVoltage || 220;
-          const calcCurrent = (currentWatts / v).toFixed(2);
+
+          const calcCurrent = (currentWatts / currentVoltage).toFixed(2);
           const isLight = p.kind === 'lamp_led';
           const dim = getCableDimensioning(Number(calcCurrent), isLight);
 
           html += `
+            <div class="prop-group">
+              <label>Tensão Nominal (Voltagem da Carga)</label>
+              <select id="prop-load-voltage">
+                <option value="127" ${currentVoltage === 127 ? 'selected' : ''}>127 V (Monofásico)</option>
+                <option value="220" ${currentVoltage === 220 ? 'selected' : ''}>220 V (Bifásico / Monofásico 220V)</option>
+              </select>
+            </div>
             <div class="prop-group">
               <label>Potência Nominal (Watts)</label>
               <input type="number" id="prop-load-watts" value="${currentWatts}" min="1" max="15000" step="5">
@@ -4059,15 +4803,15 @@
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                 <span style="color: var(--text-muted);">Corrente Calculada:</span>
-                <strong style="color: #f8fafc;" id="dim-calc-current">${calcCurrent} A (${v}V)</strong>
+                <strong style="color: #f8fafc;" id="dim-calc-current">${calcCurrent} A (${currentVoltage}V)</strong>
               </div>
               <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                 <span style="color: var(--text-muted);">Bitola Mínima Cabo:</span>
-                <strong style="color: #4ade80;" id="dim-min-gauge">${dim.gauge} mm² (${dim.ampacity}A máx)</strong>
+                <strong style="color: #4ade80;" id="dim-min-gauge">${dim.gauge} mm² (${dim.maxAmps}A máx)</strong>
               </div>
               <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--text-muted);">Disjuntor Recomendado:</span>
-                <strong style="color: #fde047;" id="dim-rec-breaker">Curva C (${dim.recommendedBreaker}A)</strong>
+                <strong style="color: #fde047;" id="dim-rec-breaker">Curva C (${dim.breaker}A)</strong>
               </div>
             </div>
           `;
@@ -4104,26 +4848,57 @@
           this.runSimulation();
           this.onSelectionChange(p);
         });
+        document.getElementById('prop-load-voltage')?.addEventListener('change', e => {
+          this.cad.saveHistory();
+          const newV = Number(e.target.value);
+          p.props.voltage = newV;
+          this.cad.render();
+          this.runSimulation();
+          const watts = Number(p.props.watts) || 100;
+          const newI = (watts / newV).toFixed(2);
+          const newDim = getCableDimensioning(Number(newI), p.kind === 'lamp_led');
+          const elCurrent = document.getElementById('dim-calc-current');
+          const elGauge = document.getElementById('dim-min-gauge');
+          const elBreaker = document.getElementById('dim-rec-breaker');
+          if (elCurrent) elCurrent.textContent = `${newI} A (${newV}V)`;
+          if (elGauge) elGauge.textContent = `${newDim.gauge} mm² (${newDim.maxAmps}A máx)`;
+          if (elBreaker) elBreaker.textContent = `Curva C (${newDim.breaker}A)`;
+        });
         document.getElementById('prop-load-watts')?.addEventListener('input', e => {
           const val = Number(e.target.value);
           if (val > 0) {
             p.props.watts = val;
             this.cad.render();
             this.runSimulation();
-            const v = this.sim.systemVoltage || 220;
+            const v = Number(p.props.voltage) || 220;
             const newI = (val / v).toFixed(2);
             const newDim = getCableDimensioning(Number(newI), p.kind === 'lamp_led');
             const elCurrent = document.getElementById('dim-calc-current');
             const elGauge = document.getElementById('dim-min-gauge');
             const elBreaker = document.getElementById('dim-rec-breaker');
             if (elCurrent) elCurrent.textContent = `${newI} A (${v}V)`;
-            if (elGauge) elGauge.textContent = `${newDim.gauge} mm² (${newDim.ampacity}A máx)`;
-            if (elBreaker) elBreaker.textContent = `Curva C (${newDim.recommendedBreaker}A)`;
+            if (elGauge) elGauge.textContent = `${newDim.gauge} mm² (${newDim.maxAmps}A máx)`;
+            if (elBreaker) elBreaker.textContent = `Curva C (${newDim.breaker}A)`;
           }
         });
       } else if (this.cad.selected.type === 'wire') {
         const w = selectedItem;
         if (propTitle) propTitle.textContent = `Condutor #${w.id}`;
+
+        const currentAmps = this.sim.lastReport?.wireCurrents?.get(w.id) || 0;
+        const wireGaugeNum = parseFloat(w.gauge) || 2.5;
+        const gaugeEntry = NBR5410_GAUGES.find(g => g.gauge === wireGaugeNum) || { maxAmps: 21.0 };
+        const maxAmps = gaugeEntry.maxAmps;
+        const isOverloaded = currentAmps > maxAmps;
+        const loadsList = this.sim.lastReport?.wireLoadSources?.get(w.id) || [];
+        const loadsDesc = loadsList.length > 0 ? loadsList.join(', ') : 'Nenhuma carga ativa';
+        const recDim = currentAmps > 0 ? getCableDimensioning(currentAmps, false) : null;
+
+        const statusBadge = isOverloaded
+          ? `<span style="color: #ef4444; font-weight: 700;">🚨 SOBREAQUECIMENTO</span>`
+          : (currentAmps > 0
+              ? `<span style="color: #22c55e; font-weight: 700;">🟢 Conforme</span>`
+              : `<span style="color: #94a3b8;">⚪ Em Repouso</span>`);
 
         let html = `
           <div class="prop-group">
@@ -4137,27 +4912,84 @@
           <div class="prop-group">
             <label>Bitola da Seção (mm²)</label>
             <select id="prop-wire-gauge">
-              <option value="1.5" ${w.gauge === '1.5' ? 'selected' : ''}>1,5 mm²</option>
-              <option value="2.5" ${w.gauge === '2.5' ? 'selected' : ''}>2,5 mm²</option>
-              <option value="4.0" ${w.gauge === '4.0' ? 'selected' : ''}>4,0 mm²</option>
-              <option value="6.0" ${w.gauge === '6.0' ? 'selected' : ''}>6,0 mm²</option>
-              <option value="10.0" ${w.gauge === '10.0' ? 'selected' : ''}>10,0 mm²</option>
+              <option value="1.5" ${w.gauge === '1.5' ? 'selected' : ''}>1,5 mm² (máx 15.5A)</option>
+              <option value="2.5" ${w.gauge === '2.5' ? 'selected' : ''}>2,5 mm² (máx 21.0A)</option>
+              <option value="4.0" ${w.gauge === '4.0' ? 'selected' : ''}>4,0 mm² (máx 28.0A)</option>
+              <option value="6.0" ${w.gauge === '6.0' ? 'selected' : ''}>6,0 mm² (máx 36.0A)</option>
+              <option value="10.0" ${w.gauge === '10.0' ? 'selected' : ''}>10,0 mm² (máx 50.0A)</option>
+              <option value="16.0" ${w.gauge === '16.0' ? 'selected' : ''}>16,0 mm² (máx 68.0A)</option>
+              <option value="25.0" ${w.gauge === '25.0' ? 'selected' : ''}>25,0 mm² (máx 89.0A)</option>
+              <option value="35.0" ${w.gauge === '35.0' ? 'selected' : ''}>35,0 mm² (máx 111.0A)</option>
             </select>
           </div>
-          <button id="btn-add-wire-junction" class="btn-icon success" style="width: 100%; margin-top: 10px; font-weight: bold;">⚡ Inserir Nó de Emenda / Derivação</button>
+          <div class="dimensioning-box" style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; margin-top: 10px; font-size: 11px;">
+            <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+              <span>⚡ Telemetria NBR 5410:</span>
+              ${statusBadge}
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: var(--text-muted);">Corrente Conduzida:</span>
+              <strong style="color: ${isOverloaded ? '#ef4444' : '#f8fafc'};" id="wire-telemetry-current">${currentAmps.toFixed(2)} A</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: var(--text-muted);">Capacidade Térmica:</span>
+              <strong style="color: #38bdf8;">${maxAmps} A</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: var(--text-muted);">Cargas no Ramo:</span>
+              <span style="color: #e2e8f0; font-size: 10px; text-align: right; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${loadsDesc}">${loadsDesc}</span>
+            </div>
+            ${isOverloaded && recDim ? `
+              <div style="margin-top: 6px; padding: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; border-radius: 4px; color: #fca5a5;">
+                ⚠️ Cabo superdimensionado na carga! Bitola mínima exigida: <strong>${recDim.gauge} mm²</strong> (${recDim.maxAmps}A)
+              </div>
+            ` : ''}
+          </div>
+          <button id="btn-apply-gauge-branch" class="btn-icon" style="width: 100%; margin-top: 8px; font-weight: bold; background: #0284c7; color: #ffffff; border: none; padding: 7px; border-radius: 5px; cursor: pointer;">
+            🔄 Aplicar ${w.gauge} mm² em todo o circuito conectado
+          </button>
+          <button id="btn-add-wire-junction" class="btn-icon success" style="width: 100%; margin-top: 6px; font-weight: bold;">⚡ Inserir Nó de Emenda / Derivação</button>
         `;
 
         if (propContent) propContent.innerHTML = html;
 
         document.getElementById('prop-wire-color')?.addEventListener('change', e => {
+          this.cad.saveHistory();
           w.color = e.target.value;
           this.cad.render();
           this.runSimulation();
         });
         document.getElementById('prop-wire-gauge')?.addEventListener('change', e => {
+          this.cad.saveHistory();
           w.gauge = e.target.value;
           this.cad.render();
           this.runSimulation();
+          this.onSelectionChange(w);
+        });
+        document.getElementById('btn-apply-gauge-branch')?.addEventListener('click', () => {
+          this.cad.saveHistory();
+          const targetGauge = w.gauge;
+          const visitedWires = new Set([w.id]);
+          const queue = [w];
+          
+          while (queue.length > 0) {
+            const currW = queue.shift();
+            currW.gauge = targetGauge;
+            
+            this.cad.wires.forEach(otherW => {
+              if (visitedWires.has(otherW.id)) return;
+              const sharesA = (otherW.a.pid === currW.a.pid && otherW.a.idx === currW.a.idx) || (otherW.b.pid === currW.a.pid && otherW.b.idx === currW.a.idx);
+              const sharesB = (otherW.a.pid === currW.b.pid && otherW.a.idx === currW.b.idx) || (otherW.b.pid === currW.b.pid && otherW.b.idx === currW.b.idx);
+              
+              if (sharesA || sharesB) {
+                visitedWires.add(otherW.id);
+                queue.push(otherW);
+              }
+            });
+          }
+          this.cad.render();
+          this.runSimulation();
+          this.onSelectionChange(w);
         });
         document.getElementById('btn-add-wire-junction')?.addEventListener('click', () => {
           const pA = this.cad.parts.find(p => p.id === w.a.pid);

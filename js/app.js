@@ -346,6 +346,43 @@ class App {
         `;
       }
 
+      const isLoad = ['lamp_led', 'shower', 'fan', 'motor', 'socket_tug', 'socket_tue', 'buzzer', 'air_conditioner', 'washing_machine', 'refrigerator', 'freezer', 'electric_iron', 'microwave'].includes(p.kind);
+      if (isLoad) {
+        const defaultV = (p.kind === 'shower' || p.kind === 'socket_tue' || p.kind === 'air_conditioner') ? 220 : (this.sim.systemVoltage === 127 ? 127 : 220);
+        const currentVoltage = Number(p.props.voltage) || defaultV;
+        p.props.voltage = currentVoltage;
+
+        let defaultWatts = 200;
+        if (p.kind === 'shower') defaultWatts = 5500;
+        else if (p.kind === 'air_conditioner') defaultWatts = 1600;
+        else if (p.kind === 'washing_machine') defaultWatts = 1000;
+        else if (p.kind === 'refrigerator') defaultWatts = 300;
+        else if (p.kind === 'freezer') defaultWatts = 450;
+        else if (p.kind === 'electric_iron') defaultWatts = 1500;
+        else if (p.kind === 'microwave') defaultWatts = 1200;
+        else if (p.kind === 'socket_tue') defaultWatts = 2200;
+        else if (p.kind === 'motor') defaultWatts = 750;
+        else if (p.kind === 'fan') defaultWatts = 120;
+        else if (p.kind === 'lamp_led') defaultWatts = 15;
+
+        const currentWatts = p.props.watts || defaultWatts;
+        p.props.watts = currentWatts;
+
+        html += `
+          <div class="prop-group">
+            <label>Tensão Nominal (Voltagem da Carga)</label>
+            <select id="prop-load-voltage">
+              <option value="127" ${currentVoltage === 127 ? 'selected' : ''}>127 V (Monofásico)</option>
+              <option value="220" ${currentVoltage === 220 ? 'selected' : ''}>220 V (Bifásico / Monofásico 220V)</option>
+            </select>
+          </div>
+          <div class="prop-group">
+            <label>Potência Nominal (Watts)</label>
+            <input type="number" id="prop-load-watts" value="${currentWatts}" min="1" max="15000" step="5">
+          </div>
+        `;
+      }
+
       if (propContent) propContent.innerHTML = html;
 
       // Eventos dos inputs
@@ -366,9 +403,33 @@ class App {
         this.cad.render();
         this.runSimulation();
       });
+
+      document.getElementById('prop-load-voltage')?.addEventListener('change', e => {
+        this.cad.saveHistory();
+        p.props.voltage = Number(e.target.value);
+        this.cad.render();
+        this.runSimulation();
+      });
+
+      document.getElementById('prop-load-watts')?.addEventListener('input', e => {
+        const val = Number(e.target.value);
+        if (val > 0) {
+          p.props.watts = val;
+          this.cad.render();
+          this.runSimulation();
+        }
+      });
     } else if (this.cad.selected.type === 'wire') {
       const w = selectedItem;
       if (propTitle) propTitle.textContent = `Condutor #${w.id}`;
+
+      const currentAmps = this.sim.lastReport?.wireCurrents?.get(w.id) || 0;
+      const wireGaugeNum = parseFloat(w.gauge) || 2.5;
+      const gaugeEntry = [{ gauge: 1.5, maxAmps: 15.5 }, { gauge: 2.5, maxAmps: 21.0 }, { gauge: 4.0, maxAmps: 28.0 }, { gauge: 6.0, maxAmps: 36.0 }, { gauge: 10.0, maxAmps: 50.0 }, { gauge: 16.0, maxAmps: 68.0 }, { gauge: 25.0, maxAmps: 89.0 }, { gauge: 35.0, maxAmps: 111.0 }].find(g => g.gauge === wireGaugeNum) || { maxAmps: 21.0 };
+      const maxAmps = gaugeEntry.maxAmps;
+      const isOverloaded = currentAmps > maxAmps;
+      const loadsList = this.sim.lastReport?.wireLoadSources?.get(w.id) || [];
+      const loadsDesc = loadsList.length > 0 ? loadsList.join(', ') : 'Nenhuma carga ativa';
 
       let html = `
         <div class="prop-group">
@@ -382,13 +443,34 @@ class App {
         <div class="prop-group">
           <label>Bitola da Seção (mm²)</label>
           <select id="prop-wire-gauge">
-            <option value="1.5" ${w.gauge === '1.5' ? 'selected' : ''}>1,5 mm²</option>
-            <option value="2.5" ${w.gauge === '2.5' ? 'selected' : ''}>2,5 mm²</option>
-            <option value="4.0" ${w.gauge === '4.0' ? 'selected' : ''}>4,0 mm²</option>
-            <option value="6.0" ${w.gauge === '6.0' ? 'selected' : ''}>6,0 mm²</option>
-            <option value="10.0" ${w.gauge === '10.0' ? 'selected' : ''}>10,0 mm²</option>
+            <option value="1.5" ${w.gauge === '1.5' ? 'selected' : ''}>1,5 mm² (máx 15.5A)</option>
+            <option value="2.5" ${w.gauge === '2.5' ? 'selected' : ''}>2,5 mm² (máx 21.0A)</option>
+            <option value="4.0" ${w.gauge === '4.0' ? 'selected' : ''}>4,0 mm² (máx 28.0A)</option>
+            <option value="6.0" ${w.gauge === '6.0' ? 'selected' : ''}>6,0 mm² (máx 36.0A)</option>
+            <option value="10.0" ${w.gauge === '10.0' ? 'selected' : ''}>10,0 mm² (máx 50.0A)</option>
+            <option value="16.0" ${w.gauge === '16.0' ? 'selected' : ''}>16,0 mm² (máx 68.0A)</option>
+            <option value="25.0" ${w.gauge === '25.0' ? 'selected' : ''}>25,0 mm² (máx 89.0A)</option>
+            <option value="35.0" ${w.gauge === '35.0' ? 'selected' : ''}>35,0 mm² (máx 111.0A)</option>
           </select>
         </div>
+        <div class="dimensioning-box" style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; margin-top: 10px; font-size: 11px;">
+          <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">⚡ Telemetria NBR 5410:</div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">Corrente:</span>
+            <strong style="color: ${isOverloaded ? '#ef4444' : '#f8fafc'};">${currentAmps.toFixed(2)} A</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">Capacidade:</span>
+            <strong style="color: #38bdf8;">${maxAmps} A</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Cargas:</span>
+            <span style="color: #e2e8f0; font-size: 10px;">${loadsDesc}</span>
+          </div>
+        </div>
+        <button id="btn-apply-gauge-branch" class="btn-icon" style="width: 100%; margin-top: 8px; font-weight: bold; background: #0284c7; color: #ffffff; border: none; padding: 7px; border-radius: 5px; cursor: pointer;">
+          🔄 Aplicar ${w.gauge} mm² em todo o circuito conectado
+        </button>
       `;
 
       if (propContent) propContent.innerHTML = html;
@@ -403,6 +485,30 @@ class App {
         w.gauge = e.target.value;
         this.cad.render();
         this.runSimulation();
+        this.onSelectionChange(w);
+      });
+
+      document.getElementById('btn-apply-gauge-branch')?.addEventListener('click', () => {
+        this.cad.saveHistory();
+        const targetGauge = w.gauge;
+        const visitedWires = new Set([w.id]);
+        const queue = [w];
+        while (queue.length > 0) {
+          const currW = queue.shift();
+          currW.gauge = targetGauge;
+          this.cad.wires.forEach(otherW => {
+            if (visitedWires.has(otherW.id)) return;
+            const sharesA = (otherW.a.pid === currW.a.pid && otherW.a.idx === currW.a.idx) || (otherW.b.pid === currW.a.pid && otherW.b.idx === currW.a.idx);
+            const sharesB = (otherW.a.pid === currW.b.pid && otherW.a.idx === currW.b.idx) || (otherW.b.pid === currW.b.pid && otherW.b.idx === currW.b.idx);
+            if (sharesA || sharesB) {
+              visitedWires.add(otherW.id);
+              queue.push(otherW);
+            }
+          });
+        }
+        this.cad.render();
+        this.runSimulation();
+        this.onSelectionChange(w);
       });
     }
   }
