@@ -7,9 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>QDC Lab PRO — Simulador Elétrico & CAD NBR 5410</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3.0">
 </head>
-<body>
+<body class="light-theme">
 
   <!-- CABEÇALHO PRINCIPAL -->
   <header class="app-header">
@@ -49,13 +49,24 @@
 
     <div class="header-actions">
       <input type="file" id="file-project-input" accept=".qdc,.json" style="display: none;">
-      <button id="btn-theme-toggle" class="btn-icon" title="Alternar entre Modo Claro e Escuro">☀️ Claro</button>
-      <button id="btn-manage-projects" class="btn-icon success" title="Salvar e gerenciar projetos no navegador ou celular">📁 Meus Projetos</button>
-      <button id="btn-save-project" class="btn-icon" title="Baixar arquivo de backup (.qdc)">💾 Arquivo</button>
-      <button id="btn-open-project" class="btn-icon" title="Abrir arquivo do computador">📂 Abrir</button>
-      <button id="btn-export-bom" class="btn-icon" title="Gerar Lista Quantitativa de Materiais">📋 Materiais</button>
-      <button id="btn-export-png" class="btn-icon" title="Exportar imagem PNG">📸 PNG</button>
-      <button id="btn-export-svg" class="btn-icon" title="Exportar desenho SVG">📐 SVG</button>
+      
+      <div class="action-cluster">
+        <button id="btn-manage-projects" class="btn-icon success" title="Salvar e gerenciar projetos no navegador ou celular">📁 Meus Projetos</button>
+        <button id="btn-save-project" class="btn-icon" title="Baixar arquivo de backup (.qdc)">💾 Arquivo</button>
+        <button id="btn-open-project" class="btn-icon" title="Abrir arquivo do computador">📂 Abrir</button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <div class="action-cluster">
+        <button id="btn-export-bom" class="btn-icon" title="Gerar Lista Quantitativa de Materiais">📋 Materiais</button>
+        <button id="btn-export-png" class="btn-icon" title="Exportar imagem PNG">📸 PNG</button>
+        <button id="btn-export-svg" class="btn-icon" title="Exportar desenho SVG">📐 SVG</button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <button id="btn-theme-toggle" class="btn-icon" title="Alternar entre Modo Claro e Escuro">🌙 Escuro</button>
     </div>
   </header>
 
@@ -128,30 +139,40 @@
     <!-- ÁREA CENTRAL: CANVAS CAD INTERATIVO -->
     <section class="workspace">
       <div class="canvas-toolbar">
-        <div class="tool-group">
-          <button id="btn-undo" class="btn-icon" title="Desfazer (Ctrl+Z)">↩️ Desfazer</button>
-          <button id="btn-redo" class="btn-icon" title="Refazer (Ctrl+Y)">↪️ Refazer</button>
-          <span style="color: var(--border-color);">|</span>
-          <button id="btn-zoom-in" class="btn-icon" title="Aproximar Zoom">🔍 +</button>
-          <button id="btn-zoom-out" class="btn-icon" title="Afastar Zoom">🔍 -</button>
-          <button id="btn-fit-all" class="btn-icon" title="Enquadrar Todos os Elementos">🎯 Ajustar</button>
-          <span style="color: var(--border-color);">|</span>
-          <button id="btn-rotate" class="btn-icon" title="Girar 90° (R)">🔄 Girar (R)</button>
-          <button id="btn-duplicate" class="btn-icon" title="Duplicar Selecionado (Ctrl+D)">📄 Duplicar</button>
-          <button id="btn-delete" class="btn-icon danger" title="Deletar Selecionado (Del)">🗑️ Deletar</button>
-          <span style="color: var(--border-color);">|</span>
-          <button id="btn-clear-wires" class="btn-icon" title="Remover todas as ligações">Limpar Fios</button>
-          <button id="btn-clear-all" class="btn-icon danger" title="Limpar todo o quadro">Limpar Tudo</button>
+        <div class="toolbar-left">
+          <div class="segmented-group">
+            <button id="btn-undo" class="btn-icon" title="Desfazer (Ctrl+Z)">↩️ Desfazer</button>
+            <button id="btn-redo" class="btn-icon" title="Refazer (Ctrl+Y)">↪️ Refazer</button>
+          </div>
+
+          <div class="segmented-group">
+            <button id="btn-zoom-in" class="btn-icon" title="Aproximar Zoom">🔍 +</button>
+            <button id="btn-zoom-out" class="btn-icon" title="Afastar Zoom">🔍 -</button>
+            <button id="btn-fit-all" class="btn-icon" title="Enquadrar Todos os Elementos">🎯 Ajustar</button>
+          </div>
+
+          <div class="segmented-group">
+            <button id="btn-rotate" class="btn-icon" title="Girar 90° (R)">🔄 Girar</button>
+            <button id="btn-duplicate" class="btn-icon" title="Duplicar Selecionado (Ctrl+D)">📄 Duplicar</button>
+            <button id="btn-delete" class="btn-icon danger" title="Deletar Selecionado (Del)">🗑️ Deletar</button>
+          </div>
+
+          <div class="segmented-group">
+            <button id="btn-clear-wires" class="btn-icon" title="Remover todas as ligações">Limpar Fios</button>
+            <button id="btn-clear-all" class="btn-icon danger" title="Limpar todo o quadro">Limpar Tudo</button>
+          </div>
         </div>
 
-        <div class="tool-group">
-          <button id="btn-toggle-enclosure" class="btn-icon active" title="Exibir ou Ocultar Quadro Metálico QDC com Trilhos DIN">🖼️ Quadro QDC</button>
-          <button id="btn-multimeter" class="btn-icon" title="Exibir Multímetro Digital True RMS">📟 Multímetro</button>
+        <div class="toolbar-right">
+          <div class="segmented-group">
+            <button id="btn-toggle-enclosure" class="btn-icon active" title="Exibir ou Ocultar Quadro Metálico QDC com Trilhos DIN">🖼️ Quadro QDC</button>
+            <button id="btn-multimeter" class="btn-icon" title="Exibir Multímetro Digital True RMS">📟 Multímetro</button>
+          </div>
 
-          <label class="switch-label">
+          <label class="switch-label sim-switch">
             <input type="checkbox" id="sim-mode-toggle">
             <div class="switch-rail"></div>
-            Simular Corrente Real
+            <span>Simular Corrente Real</span>
           </label>
         </div>
       </div>

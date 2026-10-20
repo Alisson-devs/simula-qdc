@@ -84,6 +84,25 @@ export class CircuitSimulator {
         });
       });
 
+      // Propagação por contato direto de barramentos pente encaixados nos bornes
+      const dockedConns = this.getDockedCombConnections(parts);
+      dockedConns.forEach(dc => {
+        const kA = `${dc.combId}:${dc.combTermIdx}`;
+        const kB = `${dc.compId}:${dc.compTermIdx}`;
+
+        Object.keys(nets).forEach(netName => {
+          const net = nets[netName];
+          if (net.has(kA) && !net.has(kB)) {
+            net.add(kB);
+            changed = true;
+          }
+          if (net.has(kB) && !net.has(kA)) {
+            net.add(kA);
+            changed = true;
+          }
+        });
+      });
+
       // Propagação interna em componentes (disjuntores, chaves, barramentos)
       parts.forEach(p => {
         const conductionPairs = this.getInternalConductionPairs(p);
@@ -227,6 +246,44 @@ export class CircuitSimulator {
     return report;
   }
 
+  // Identifica conexões físicas diretas de encaixe entre dentes do pente e bornes superiores
+  getDockedCombConnections(parts) {
+    const connections = [];
+    const combs = parts.filter(p => ['comb_1p', 'comb_2p', 'comb_3p'].includes(p.kind));
+    const modulars = parts.filter(p => ['breaker1', 'breaker2', 'breaker3', 'spd', 'spd3', 'rcd2', 'rcd4'].includes(p.kind));
+
+    combs.forEach(comb => {
+      comb.terms.forEach(ct => {
+        const pinGlobalX = comb.x + ct.x;
+        const pinGlobalY = comb.y + ct.y;
+
+        modulars.forEach(comp => {
+          comp.terms.forEach(mt => {
+            // Apenas bornes de entrada superiores (y <= 20)
+            if (mt.y > 20) return;
+            const borneGlobalX = comp.x + mt.x;
+            const borneGlobalY = comp.y + mt.y;
+
+            const dx = Math.abs(pinGlobalX - borneGlobalX);
+            const dy = Math.abs(pinGlobalY - borneGlobalY);
+            if (dx <= 8 && dy <= 16) {
+              connections.push({
+                combId: comb.id,
+                combTermIdx: ct.idx,
+                combPinId: ct.id,
+                compId: comp.id,
+                compTermIdx: mt.idx,
+                compTermId: mt.id,
+                phase: ct.type
+              });
+            }
+          });
+        });
+      });
+    });
+    return connections;
+  }
+
   // Define os pares de terminais internamente fechados de cada componente
   getInternalConductionPairs(p) {
     const pairs = [];
@@ -272,10 +329,39 @@ export class CircuitSimulator {
 
       case 'neutral_bus':
       case 'earth_bus':
-        // Todos os terminais do barramento são equipotenciais
+      case 'wire_junction':
+      case 'comb_1p':
+        // Todos os terminais do barramento monofásico são equipotenciais
         if (p.terms && p.terms.length > 1) {
           for (let i = 0; i < p.terms.length - 1; i++) {
             pairs.push([i, i + 1]);
+          }
+        }
+        break;
+
+      case 'comb_2p':
+        // Barramento Bifásico: Pinos pares = L1; Pinos ímpares = L2
+        if (p.terms && p.terms.length > 2) {
+          for (let i = 0; i < p.terms.length - 2; i += 2) {
+            pairs.push([i, i + 2]);
+          }
+          for (let i = 1; i < p.terms.length - 2; i += 2) {
+            pairs.push([i, i + 2]);
+          }
+        }
+        break;
+
+      case 'comb_3p':
+        // Barramento Trifásico: L1 (0, 3, 6...), L2 (1, 4, 7...), L3 (2, 5, 8...)
+        if (p.terms && p.terms.length > 3) {
+          for (let i = 0; i < p.terms.length - 3; i += 3) {
+            pairs.push([i, i + 3]);
+          }
+          for (let i = 1; i < p.terms.length - 3; i += 3) {
+            pairs.push([i, i + 3]);
+          }
+          for (let i = 2; i < p.terms.length - 3; i += 3) {
+            pairs.push([i, i + 3]);
           }
         }
         break;

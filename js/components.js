@@ -71,17 +71,17 @@ export const COMPONENT_DEFINITIONS = {
   },
 
   // ==========================================
-  // PROTEÇÃO QDC
+  // PROTEÇÃO QDC (MÓDULOS PADRÃO DIN 40px = 18mm)
   // ==========================================
   breaker1: {
     name: 'Disjuntor Termomagnético 1P (Monopolar)',
     shortName: 'DISJUNTOR 1P',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 70, h: 110,
+    w: 40, h: 110,
     terms: [
-      { id: 'in',  label: 'Entrada Fase', type: 'f1', x: 35, y: 0, side: 'top' },
-      { id: 'out', label: 'Saída Circuito', type: 'f1', x: 35, y: 110, side: 'bottom' }
+      { id: 'in',  label: 'Entrada Fase', type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'out', label: 'Saída Circuito', type: 'f1', x: 20, y: 110, side: 'bottom' }
     ],
     defaultProps: { rating: 16, isOn: true, tripped: false, curve: 'C' }
   },
@@ -91,12 +91,12 @@ export const COMPONENT_DEFINITIONS = {
     shortName: 'DISJUNTOR 2P',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 95, h: 110,
+    w: 80, h: 110,
     terms: [
-      { id: 'in1',  label: 'Entrada F1', type: 'f1', x: 28, y: 0, side: 'top' },
-      { id: 'in2',  label: 'Entrada F2', type: 'f2', x: 67, y: 0, side: 'top' },
-      { id: 'out1', label: 'Saída F1',   type: 'f1', x: 28, y: 110, side: 'bottom' },
-      { id: 'out2', label: 'Saída F2',   type: 'f2', x: 67, y: 110, side: 'bottom' }
+      { id: 'in1',  label: 'Entrada F1', type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'in2',  label: 'Entrada F2', type: 'f2', x: 60, y: 0, side: 'top' },
+      { id: 'out1', label: 'Saída F1',   type: 'f1', x: 20, y: 110, side: 'bottom' },
+      { id: 'out2', label: 'Saída F2',   type: 'f2', x: 60, y: 110, side: 'bottom' }
     ],
     defaultProps: { rating: 32, isOn: true, tripped: false, curve: 'C' }
   },
@@ -106,13 +106,13 @@ export const COMPONENT_DEFINITIONS = {
     shortName: 'DISJUNTOR 3P',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 125, h: 110,
+    w: 120, h: 110,
     terms: [
-      { id: 'in1',  label: 'Entrada F1', type: 'f1', x: 25, y: 0, side: 'top' },
-      { id: 'in2',  label: 'Entrada F2', type: 'f2', x: 62, y: 0, side: 'top' },
+      { id: 'in1',  label: 'Entrada F1', type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'in2',  label: 'Entrada F2', type: 'f2', x: 60, y: 0, side: 'top' },
       { id: 'in3',  label: 'Entrada F3', type: 'f3', x: 100, y: 0, side: 'top' },
-      { id: 'out1', label: 'Saída F1',   type: 'f1', x: 25, y: 110, side: 'bottom' },
-      { id: 'out2', label: 'Saída F2',   type: 'f2', x: 62, y: 110, side: 'bottom' },
+      { id: 'out1', label: 'Saída F1',   type: 'f1', x: 20, y: 110, side: 'bottom' },
+      { id: 'out2', label: 'Saída F2',   type: 'f2', x: 60, y: 110, side: 'bottom' },
       { id: 'out3', label: 'Saída F3',   type: 'f3', x: 100, y: 110, side: 'bottom' }
     ],
     defaultProps: { rating: 50, isOn: true, tripped: false, curve: 'C' }
@@ -123,12 +123,12 @@ export const COMPONENT_DEFINITIONS = {
     shortName: 'DR 2 POLOS (30mA)',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 95, h: 120,
+    w: 80, h: 120,
     terms: [
-      { id: 'in_f',  label: 'Entrada Fase',   type: 'f1', x: 28, y: 0, side: 'top' },
-      { id: 'in_n',  label: 'Entrada Neutro', type: 'n',  x: 67, y: 0, side: 'top' },
-      { id: 'out_f', label: 'Saída Fase',     type: 'f1', x: 28, y: 120, side: 'bottom' },
-      { id: 'out_n', label: 'Saída Neutro',   type: 'n',  x: 67, y: 120, side: 'bottom' }
+      { id: 'in_f',  label: 'Entrada Fase',   type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'in_n',  label: 'Entrada Neutro', type: 'n',  x: 60, y: 0, side: 'top' },
+      { id: 'out_f', label: 'Saída Fase',     type: 'f1', x: 20, y: 120, side: 'bottom' },
+      { id: 'out_n', label: 'Saída Neutro',   type: 'n',  x: 60, y: 120, side: 'bottom' }
     ],
     defaultProps: { rating: 40, sensitivity: 30, isOn: true, tripped: false }
   },
@@ -138,16 +138,16 @@ export const COMPONENT_DEFINITIONS = {
     shortName: 'DR TETRAPOLAR (30mA)',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 155, h: 120,
+    w: 160, h: 120,
     terms: [
-      { id: 'in1',  label: 'Entrada F1',     type: 'f1', x: 24, y: 0, side: 'top' },
-      { id: 'in2',  label: 'Entrada F2',     type: 'f2', x: 58, y: 0, side: 'top' },
-      { id: 'in3',  label: 'Entrada F3',     type: 'f3', x: 92, y: 0, side: 'top' },
-      { id: 'in_n', label: 'Entrada Neutro', type: 'n',  x: 128, y: 0, side: 'top' },
-      { id: 'out1', label: 'Saída F1',       type: 'f1', x: 24, y: 120, side: 'bottom' },
-      { id: 'out2', label: 'Saída F2',       type: 'f2', x: 58, y: 120, side: 'bottom' },
-      { id: 'out3', label: 'Saída F3',       type: 'f3', x: 92, y: 120, side: 'bottom' },
-      { id: 'out_n',label: 'Saída Neutro',   type: 'n',  x: 128, y: 120, side: 'bottom' }
+      { id: 'in1',  label: 'Entrada F1',     type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'in2',  label: 'Entrada F2',     type: 'f2', x: 60, y: 0, side: 'top' },
+      { id: 'in3',  label: 'Entrada F3',     type: 'f3', x: 100, y: 0, side: 'top' },
+      { id: 'in_n', label: 'Entrada Neutro', type: 'n',  x: 140, y: 0, side: 'top' },
+      { id: 'out1', label: 'Saída F1',       type: 'f1', x: 20, y: 120, side: 'bottom' },
+      { id: 'out2', label: 'Saída F2',       type: 'f2', x: 60, y: 120, side: 'bottom' },
+      { id: 'out3', label: 'Saída F3',       type: 'f3', x: 100, y: 120, side: 'bottom' },
+      { id: 'out_n',label: 'Saída Neutro',   type: 'n',  x: 140, y: 120, side: 'bottom' }
     ],
     defaultProps: { rating: 63, sensitivity: 30, isOn: true, tripped: false }
   },
@@ -157,12 +157,29 @@ export const COMPONENT_DEFINITIONS = {
     shortName: 'DPS CLASSE II',
     category: 'qdc',
     categoryLabel: 'Proteção QDC',
-    w: 70, h: 100,
+    w: 40, h: 100,
     terms: [
-      { id: 'in',  label: 'Entrada Fase/N', type: 'f1', x: 35, y: 0, side: 'top' },
-      { id: 'pe',  label: 'Aterramento PE', type: 'pe', x: 35, y: 100, side: 'bottom' }
+      { id: 'in',  label: 'Entrada Fase/N', type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'pe',  label: 'Aterramento PE', type: 'pe', x: 20, y: 100, side: 'bottom' }
     ],
-    defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true }
+    defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true, poles: 1 }
+  },
+
+  spd3: {
+    name: 'DPS Trifásico Classe II (3 Pólos Vermelhos)',
+    shortName: 'DPS 3P (45kA)',
+    category: 'qdc',
+    categoryLabel: 'Proteção QDC',
+    w: 120, h: 100,
+    terms: [
+      { id: 'in1', label: 'Entrada L1', type: 'f1', x: 20, y: 0, side: 'top' },
+      { id: 'in2', label: 'Entrada L2', type: 'f2', x: 60, y: 0, side: 'top' },
+      { id: 'in3', label: 'Entrada L3', type: 'f3', x: 100, y: 0, side: 'top' },
+      { id: 'pe1', label: 'Terra PE1',  type: 'pe', x: 20, y: 100, side: 'bottom' },
+      { id: 'pe2', label: 'Terra PE2',  type: 'pe', x: 60, y: 100, side: 'bottom' },
+      { id: 'pe3', label: 'Terra PE3',  type: 'pe', x: 100, y: 100, side: 'bottom' }
+    ],
+    defaultProps: { maxVoltage: 275, maxCurrentKa: 45, ok: true, poles: 3 }
   },
 
   neutral_bus: {
@@ -197,6 +214,73 @@ export const COMPONENT_DEFINITIONS = {
       { id: 'pe5', label: 'PE5', type: 'pe', x: 160, y: 23, side: 'right' }
     ],
     defaultProps: {}
+  },
+
+  comb_1p: {
+    name: 'Barramento Tipo Pente Monofásico 1P',
+    shortName: 'PENTE 1P (63A)',
+    category: 'bus',
+    categoryLabel: 'Barramentos Pente',
+    w: 240, h: 42,
+    terms: [
+      { id: 'p0', label: 'Pino 1 (Fase)', type: 'f1', x: 20,  y: 42, side: 'bottom' },
+      { id: 'p1', label: 'Pino 2 (Fase)', type: 'f1', x: 60,  y: 42, side: 'bottom' },
+      { id: 'p2', label: 'Pino 3 (Fase)', type: 'f1', x: 100, y: 42, side: 'bottom' },
+      { id: 'p3', label: 'Pino 4 (Fase)', type: 'f1', x: 140, y: 42, side: 'bottom' },
+      { id: 'p4', label: 'Pino 5 (Fase)', type: 'f1', x: 180, y: 42, side: 'bottom' },
+      { id: 'p5', label: 'Pino 6 (Fase)', type: 'f1', x: 220, y: 42, side: 'bottom' }
+    ],
+    defaultProps: { rating: 63, poles: 6 }
+  },
+
+  comb_2p: {
+    name: 'Barramento Tipo Pente Bifásico 2P',
+    shortName: 'PENTE 2P (63A)',
+    category: 'bus',
+    categoryLabel: 'Barramentos Pente',
+    w: 240, h: 42,
+    terms: [
+      { id: 'p0', label: 'Pino 1 (L1)', type: 'f1', x: 20,  y: 42, side: 'bottom' },
+      { id: 'p1', label: 'Pino 2 (L2)', type: 'f2', x: 60,  y: 42, side: 'bottom' },
+      { id: 'p2', label: 'Pino 3 (L1)', type: 'f1', x: 100, y: 42, side: 'bottom' },
+      { id: 'p3', label: 'Pino 4 (L2)', type: 'f2', x: 140, y: 42, side: 'bottom' },
+      { id: 'p4', label: 'Pino 5 (L1)', type: 'f1', x: 180, y: 42, side: 'bottom' },
+      { id: 'p5', label: 'Pino 6 (L2)', type: 'f2', x: 220, y: 42, side: 'bottom' }
+    ],
+    defaultProps: { rating: 63, poles: 6 }
+  },
+
+  comb_3p: {
+    name: 'Barramento Tipo Pente Trifásico 3P',
+    shortName: 'PENTE 3P (63A)',
+    category: 'bus',
+    categoryLabel: 'Barramentos Pente',
+    w: 240, h: 42,
+    terms: [
+      { id: 'p0', label: 'Pino 1 (L1)', type: 'f1', x: 20,  y: 42, side: 'bottom' },
+      { id: 'p1', label: 'Pino 2 (L2)', type: 'f2', x: 60,  y: 42, side: 'bottom' },
+      { id: 'p2', label: 'Pino 3 (L3)', type: 'f3', x: 100, y: 42, side: 'bottom' },
+      { id: 'p3', label: 'Pino 4 (L1)', type: 'f1', x: 140, y: 42, side: 'bottom' },
+      { id: 'p4', label: 'Pino 5 (L2)', type: 'f2', x: 180, y: 42, side: 'bottom' },
+      { id: 'p5', label: 'Pino 6 (L3)', type: 'f3', x: 220, y: 42, side: 'bottom' }
+    ],
+    defaultProps: { rating: 63, poles: 6 }
+  },
+
+  wire_junction: {
+    name: 'Conector de Emenda / Derivação (WAGO)',
+    shortName: 'EMENDA / NÓ',
+    category: 'bus',
+    categoryLabel: 'Emendas & Derivações',
+    w: 32, h: 32,
+    terms: [
+      { id: 't0', label: 'Borne Norte', type: 'ret', x: 16, y: 0 },
+      { id: 't1', label: 'Borne Sul',   type: 'ret', x: 16, y: 32 },
+      { id: 't2', label: 'Borne Oeste', type: 'ret', x: 0,  y: 16 },
+      { id: 't3', label: 'Borne Leste', type: 'ret', x: 32, y: 16 },
+      { id: 't4', label: 'Borne Centro',type: 'ret', x: 16, y: 16 }
+    ],
+    defaultProps: { color: 'f1' }
   },
 
   // ==========================================
